@@ -44,7 +44,7 @@ body::before {
 /* ════════ NAV ════════ */
 #nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 800;
-  padding: 1.4rem 3.5rem;
+  padding: 1.6rem 3.5rem;
   display: flex; align-items: center; justify-content: space-between;
   transition: background .4s, border-bottom .4s;
   border-bottom: 1px solid transparent;
@@ -54,15 +54,25 @@ body::before {
   backdrop-filter: blur(16px);
   border-bottom-color: var(--border);
 }
-.nav-logo { font-family: 'Cinzel', serif; font-size: .95rem; font-weight: 600; letter-spacing: .28em; color: var(--gold); text-decoration: none; }
-.nav-links { display: flex; gap: 2.4rem; list-style: none; }
+.nav-logo { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; letter-spacing: .28em; color: var(--gold); text-decoration: none; flex-shrink: 0; }
+.nav-links { display: flex; gap: 0; list-style: none; flex: 1; justify-content: center; }
 .nav-links a {
-  font-size: .75rem; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--text-dim); text-decoration: none; transition: color .25s; position: relative;
+  font-size: .88rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--text-dim); text-decoration: none; transition: color .25s, background .25s;
+  position: relative; padding: .55rem 1.4rem;
+  font-family: 'Cinzel', serif; font-weight: 400;
+  border: 1px solid transparent;
 }
-.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width .3s; }
-.nav-links a:hover { color: var(--gold-light); }
-.nav-links a:hover::after { width: 100%; }
+.nav-links a::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 0; height: 1px;
+  background: var(--gold); transition: width .35s;
+}
+.nav-links a:hover { color: var(--gold-light); border-color: var(--border); }
+.nav-links a:hover::after { width: 60%; }
+.nav-links a.active-link { color: var(--gold); }
+.nav-links a.active-link::after { width: 60%; }
 
 /* ════════ CAT DOT NAV ════════ */
 #cat-nav {
@@ -446,20 +456,20 @@ footer {
 <nav id="nav">
   <a class="nav-logo" href="#hero">PORTFOLIO</a>
   <ul class="nav-links">
-    <li><a href="#cat-0">HUD</a></li>
-    <li><a href="#cat-1">인벤토리</a></li>
-    <li><a href="#cat-2">퀘스트</a></li>
-    <li><a href="#cat-3">커스터마이징</a></li>
-    <li><a href="#about">소개</a></li>
+    <li><a href="#cat-0">MirM</a></li>
+    <li><a href="#cat-1">MirM China</a></li>
+    <li><a href="#cat-2">Post Project</a></li>
+    <li><a href="#cat-3">Other Projects</a></li>
+    <li><a href="#about">About</a></li>
   </ul>
 </nav>
 
 <!-- CAT DOT NAV -->
 <div id="cat-nav">
-  <div class="cat-dot active" data-target="cat-0"><span class="cat-dot-label">HUD 디자인</span><span class="cat-dot-circle"></span></div>
-  <div class="cat-dot" data-target="cat-1"><span class="cat-dot-label">인벤토리</span><span class="cat-dot-circle"></span></div>
-  <div class="cat-dot" data-target="cat-2"><span class="cat-dot-label">퀘스트</span><span class="cat-dot-circle"></span></div>
-  <div class="cat-dot" data-target="cat-3"><span class="cat-dot-label">캐릭터 커스터마이징</span><span class="cat-dot-circle"></span></div>
+  <div class="cat-dot active" data-target="cat-0"><span class="cat-dot-label">MirM</span><span class="cat-dot-circle"></span></div>
+  <div class="cat-dot" data-target="cat-1"><span class="cat-dot-label">MirM China</span><span class="cat-dot-circle"></span></div>
+  <div class="cat-dot" data-target="cat-2"><span class="cat-dot-label">Post Project</span><span class="cat-dot-circle"></span></div>
+  <div class="cat-dot" data-target="cat-3"><span class="cat-dot-label">Other Projects</span><span class="cat-dot-circle"></span></div>
 </div>
 
 <!-- HERO -->
@@ -507,8 +517,8 @@ footer {
   <div class="cat-header">
     <div class="cat-num">01</div>
     <div class="cat-info">
-      <div class="cat-tag">Category 01</div>
-      <h2 class="cat-title">HUD 디자인</h2>
+      <div class="cat-tag">Project 01</div>
+      <h2 class="cat-title">MirM</h2>
       <p class="cat-desc">전투 상황에서 플레이어에게 핵심 정보를 직관적으로 전달하는 인터페이스. 최소한의 시각 요소로 최대의 가독성을 구현합니다.</p>
     </div>
   </div>
@@ -544,8 +554,8 @@ footer {
   <div class="cat-header">
     <div class="cat-num">02</div>
     <div class="cat-info">
-      <div class="cat-tag">Category 02</div>
-      <h2 class="cat-title">인벤토리 시스템</h2>
+      <div class="cat-tag">Project 02</div>
+      <h2 class="cat-title">MirM China</h2>
       <p class="cat-desc">아이템 관리와 장비 착용을 위한 복합 인터페이스. 화이트/블랙 테마 전환과 직관적인 장비 슬롯 구성으로 플레이어의 원활한 아이템 관리를 지원합니다.</p>
     </div>
   </div>
@@ -623,8 +633,8 @@ footer {
   <div class="cat-header">
     <div class="cat-num">03</div>
     <div class="cat-info">
-      <div class="cat-tag">Category 03</div>
-      <h2 class="cat-title">퀘스트 시스템</h2>
+      <div class="cat-tag">Project 03</div>
+      <h2 class="cat-title">Post Project</h2>
       <p class="cat-desc">퀘스트 진행 현황부터 위젯 구성, 블루프린트 설계까지 퀘스트 UI의 전체 파이프라인을 담았습니다. 메인 페이지 디자인과 내부 구현 구조를 함께 확인할 수 있습니다.</p>
     </div>
   </div>
@@ -723,8 +733,8 @@ footer {
   <div class="cat-header">
     <div class="cat-num">04</div>
     <div class="cat-info">
-      <div class="cat-tag">Category 04</div>
-      <h2 class="cat-title">캐릭터 커스터마이징</h2>
+      <div class="cat-tag">Project 04</div>
+      <h2 class="cat-title">Other Projects</h2>
       <p class="cat-desc">플레이어가 자신만의 캐릭터를 만드는 과정. 외형 커스터마이징 메인 화면부터 세부 조정 UI까지 몰입감 있는 캐릭터 생성 경험을 설계했습니다.</p>
     </div>
   </div>
@@ -817,10 +827,23 @@ footer {
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Nav ──
 var nav = document.getElementById('nav');
+var navLinks = document.querySelectorAll('.nav-links a[href^="#cat"]');
 window.addEventListener('scroll', function() {
   nav.classList.toggle('scrolled', window.scrollY > 50);
   updateDots();
+  updateNavLinks();
 }, { passive: true });
+
+function updateNavLinks() {
+  var mid = window.scrollY + window.innerHeight * 0.45;
+  var current = -1;
+  sections.forEach(function(s, i) {
+    if (s.getBoundingClientRect().top + window.scrollY <= mid) current = i;
+  });
+  navLinks.forEach(function(a, i) {
+    a.classList.toggle('active-link', i === current);
+  });
+}
 
 // ── Scroll reveal ──
 var workItems = document.querySelectorAll('.work-item');
