@@ -205,13 +205,14 @@ body::before {
 .work-visual {
   display: block; width: 100%;
   position: relative; border: 1px solid var(--border);
-  overflow: hidden; opacity: 0;
+  overflow: hidden;
+  opacity: 0;
   transform: translateX(-35px);
   transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1);
   cursor: zoom-in;
 }
 .work-item:nth-child(even) .work-visual { transform: translateX(35px); }
-.work-item.revealed .work-visual { opacity: 1; transform: translateX(0); }
+.work-item.revealed .work-visual { opacity: 1 !important; transform: translateX(0) !important; }
 
 .work-visual-ratio {
   display: block; width: 100%; padding-top: 62.5%; position: relative;
@@ -267,7 +268,7 @@ body::before {
   transition: opacity 1s .22s cubic-bezier(.2,.8,.2,1), transform 1s .22s cubic-bezier(.2,.8,.2,1);
 }
 .work-item:nth-child(even) .work-info { transform: translateX(-35px); }
-.work-item.revealed .work-info { opacity: 1; transform: translateX(0); }
+.work-item.revealed .work-info { opacity: 1 !important; transform: translateX(0) !important; }
 
 .work-index { font-family: 'Cinzel', serif; font-size: .7rem; letter-spacing: .3em; color: var(--gold); }
 .work-title { font-family: 'Cinzel', serif; font-size: clamp(1.25rem, 2vw, 1.8rem); font-weight: 600; color: var(--text-bright); letter-spacing: .06em; line-height: 1.25; }
@@ -1068,10 +1069,32 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 
 // ── Scroll reveal ──
 var workItems = document.querySelectorAll('.work-item');
-var revealObs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('revealed'); });
-}, { threshold: 0.12 });
-workItems.forEach(function(el) { revealObs.observe(el); });
+
+function revealVisible() {
+  workItems.forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92) {
+      el.classList.add('revealed');
+    }
+  });
+}
+
+// 페이지 로드 즉시 실행
+revealVisible();
+
+// IntersectionObserver 백업
+if ('IntersectionObserver' in window) {
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+  workItems.forEach(function(el) { revealObs.observe(el); });
+}
+
+window.addEventListener('scroll', revealVisible, { passive: true });
 
 updateDots();
 
