@@ -6,115 +6,105 @@
 <title>Game UI Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════
+   VARIABLES
+══════════════════════════════════════ */
 :root {
-  --gold: #C9A84C;
-  --gold-light: #E8CC7A;
-  --gold-pale: #F0DFA0;
-  --obsidian: #1C1917;
-  --panel: #242320;
-  --border: rgba(201,168,76,0.18);
-  --border-bright: rgba(201,168,76,0.5);
-  --text: #D6CFC4;
-  --text-dim: rgba(214,207,196,0.45);
-  --text-bright: #EDE8E3;
+  --gold:         #C9A84C;
+  --gold-light:   #E8CC7A;
+  --gold-pale:    #F0DFA0;
+  --bg:           #1C1917;
+  --panel:        #242320;
+  --panel2:       #2C2A27;
+  --border:       rgba(201,168,76,0.18);
+  --border-hi:    rgba(201,168,76,0.5);
+  --text:         #D6CFC4;
+  --text-dim:     rgba(214,207,196,0.5);
+  --text-bright:  #EDE8E3;
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ══════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--obsidian);
+  background: var(--bg);
   color: var(--text);
   font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;
   overflow-x: hidden;
-  cursor: default;
 }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); }
 
-/* ── Grid bg ── */
+/* grid overlay */
 body::before {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,0.025) 59px, rgba(201,168,76,0.025) 60px),
-    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,0.025) 59px, rgba(201,168,76,0.025) 60px);
+    repeating-linear-gradient(0deg,  transparent, transparent 59px, rgba(201,168,76,.025) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,.025) 60px);
 }
 
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--obsidian); }
-::-webkit-scrollbar-thumb { background: var(--gold); }
-
-/* ════════ NAV ════════ */
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
 #nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
-  padding: 0 3rem;
-  height: 64px;
-  display: flex; align-items: center; justify-content: space-between;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: 64px; padding: 0 3rem;
+  display: flex; align-items: center;
   transition: background .4s, border-bottom .4s;
   border-bottom: 1px solid transparent;
 }
 #nav.scrolled {
-  background: rgba(28,25,23,0.96);
-  backdrop-filter: blur(16px);
+  background: rgba(28,25,23,.96);
+  backdrop-filter: blur(18px);
   border-bottom-color: var(--border);
 }
 .nav-logo {
-  font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600;
+  font-family: 'Cinzel', serif; font-size: .95rem; font-weight: 600;
   letter-spacing: .28em; color: var(--gold); text-decoration: none; flex-shrink: 0;
 }
-.nav-links {
-  display: flex; gap: 0; list-style: none;
+.nav-center {
   position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 0; list-style: none;
 }
-.nav-links li a {
-  font-family: 'Cinzel', serif;
-  font-size: .88rem; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--text-dim); text-decoration: none;
-  padding: .6rem 1.5rem;
-  display: block;
-  position: relative;
-  transition: color .25s;
-  white-space: nowrap;
-}
-.nav-links li a::after {
-  content: ''; position: absolute;
-  bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 0; height: 1px;
-  background: var(--gold); transition: width .35s;
-}
-.nav-links li a:hover { color: var(--gold-light); }
-.nav-links li a:hover::after { width: 55%; }
-.nav-links li a.active-link { color: var(--gold); }
-.nav-links li a.active-link::after { width: 55%; }
-
-.nav-about {
-  font-family: 'Cinzel', serif; font-size: .78rem; letter-spacing: .22em;
+.nav-center a {
+  font-family: 'Cinzel', serif; font-size: .88rem; letter-spacing: .15em;
   color: var(--text-dim); text-decoration: none; text-transform: uppercase;
-  transition: color .25s; flex-shrink: 0;
+  padding: .55rem 1.6rem; display: block; position: relative;
+  transition: color .25s; white-space: nowrap;
 }
-.nav-about:hover { color: var(--gold-light); }
+.nav-center a::after {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 0; height: 1px; background: var(--gold); transition: width .35s;
+}
+.nav-center a:hover, .nav-center a.active { color: var(--gold-light); }
+.nav-center a:hover::after, .nav-center a.active::after { width: 55%; }
 
-/* ════════ CAT DOT NAV ════════ */
-#cat-nav {
-  position: fixed; right: 2rem; top: 50%;
-  transform: translateY(-50%);
-  z-index: 700;
-  display: flex; flex-direction: column; gap: 1.1rem; align-items: flex-end;
+/* dot nav */
+#dotnav {
+  position: fixed; right: 2rem; top: 50%; transform: translateY(-50%);
+  z-index: 800; display: flex; flex-direction: column; gap: 1rem; align-items: flex-end;
 }
-.cat-dot { display: flex; align-items: center; gap: .75rem; cursor: pointer; padding: .15rem 0; }
-.cat-dot-circle {
+.dn-item { display: flex; align-items: center; gap: .7rem; cursor: pointer; }
+.dn-label {
+  font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .18em;
+  color: var(--text-dim); text-transform: uppercase;
+  opacity: 0; transform: translateX(6px); transition: opacity .3s, transform .3s; white-space: nowrap;
+}
+.dn-dot {
   width: 7px; height: 7px; border-radius: 50%;
-  border: 1px solid rgba(201,168,76,0.45); flex-shrink: 0;
+  border: 1px solid rgba(201,168,76,.4); flex-shrink: 0;
   transition: background .3s, box-shadow .3s, transform .3s;
 }
-.cat-dot-label {
-  font-size: .65rem; letter-spacing: .18em; color: var(--text-dim);
-  text-transform: uppercase; opacity: 0; transform: translateX(6px);
-  transition: opacity .3s, transform .3s; white-space: nowrap;
-  font-family: 'Cinzel', serif;
-}
-.cat-dot:hover .cat-dot-label, .cat-dot.active .cat-dot-label { opacity: 1; transform: translateX(0); }
-.cat-dot.active .cat-dot-circle { background: var(--gold); box-shadow: 0 0 10px var(--gold); transform: scale(1.5); }
-.cat-dot:hover .cat-dot-circle { background: rgba(201,168,76,0.35); }
+.dn-item:hover .dn-label, .dn-item.on .dn-label { opacity: 1; transform: translateX(0); }
+.dn-item.on .dn-dot { background: var(--gold); box-shadow: 0 0 10px var(--gold); transform: scale(1.5); }
+.dn-item:hover .dn-dot { background: rgba(201,168,76,.35); }
 
-/* ════════ HERO ════════ */
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
 #hero {
   position: relative; height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -122,317 +112,288 @@ body::before {
 }
 .hero-glow {
   position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
+  background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(201,168,76,.07) 0%, transparent 70%);
 }
-.hero-emblem { width: 130px; height: 130px; margin-bottom: 2.5rem; animation: h-appear 1.8s cubic-bezier(.2,.8,.2,1) both; }
+.hero-emblem { width: 120px; height: 120px; margin-bottom: 2.2rem; }
 .hero-emblem svg { width: 100%; height: 100%; }
-.hero-sub { font-size: .78rem; letter-spacing: .45em; color: var(--text-dim); text-transform: uppercase; animation: h-appear 1.5s .5s both; margin-bottom: .8rem; }
-.hero-title {
-  font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 5.5rem); font-weight: 900;
-  letter-spacing: .14em; text-align: center; line-height: 1; animation: h-appear 1.8s .3s both;
-}
-.hero-title span {
+.er1 { animation: spin1 18s linear infinite; transform-origin: 50% 50%; }
+.er2 { animation: spin2 24s linear infinite; transform-origin: 50% 50%; }
+.ec  { animation: float 4s ease-in-out infinite; transform-origin: 50% 50%; }
+.hero-sub  { font-size:.78rem; letter-spacing:.45em; color:var(--text-dim); text-transform:uppercase; margin-bottom:.8rem; }
+.hero-h1   { font-family:'Cinzel',serif; font-size:clamp(2.8rem,6vw,5.8rem); font-weight:900; letter-spacing:.14em; }
+.hero-h1 span {
   background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold) 50%, #9A6F20 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.hero-line { width: 200px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 1.8rem auto; animation: h-line 1.5s 1s both; }
-.hero-desc { font-size: 1.05rem; font-style: italic; color: var(--text-dim); letter-spacing: .1em; animation: h-appear 1.5s 1.2s both; }
-.scroll-hint {
-  position: absolute; bottom: 2.8rem;
+.hero-line { width:200px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:1.6rem auto; }
+.hero-desc { font-size:1.05rem; font-style:italic; color:var(--text-dim); letter-spacing:.1em; }
+.scroll-cue {
+  position: absolute; bottom: 2.5rem;
   display: flex; flex-direction: column; align-items: center; gap: .5rem;
-  font-size: .7rem; letter-spacing: .3em; color: var(--text-dim); text-transform: uppercase;
-  animation: h-appear 1.5s 2s both;
+  font-size:.68rem; letter-spacing:.3em; color:var(--text-dim); text-transform:uppercase;
 }
-.scroll-hint::after {
-  content: ''; width: 1px; height: 55px;
-  background: linear-gradient(180deg, var(--gold), transparent);
-  animation: s-pulse 2s 2.5s infinite;
+.scroll-cue::after {
+  content:''; width:1px; height:50px;
+  background:linear-gradient(180deg, var(--gold), transparent);
+  animation: pulse 2s ease-in-out infinite;
 }
-.particle {
-  position: absolute; width: 3px; height: 3px; background: var(--gold); border-radius: 50%; opacity: 0;
-  animation: pdrift var(--d, 9s) var(--dl, 0s) infinite;
-}
+.ptc { position:absolute; width:3px; height:3px; background:var(--gold); border-radius:50%; opacity:0; animation:pdrift var(--d,9s) var(--dl,0s) infinite; }
 
-/* ════════ CAT SEPARATOR ════════ */
-.cat-sep { text-align: center; padding: 5rem 0 2.5rem; position: relative; z-index: 1; }
-.cat-sep-inner { display: inline-flex; align-items: center; gap: 1.5rem; }
-.sep-line { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
-.sep-line.r { background: linear-gradient(90deg, var(--gold), transparent); }
-.sep-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); box-shadow: 0 0 10px var(--gold); }
+/* ══════════════════════════════════════
+   SECTION SEPARATOR
+══════════════════════════════════════ */
+.sep { text-align:center; padding:5rem 0 2.5rem; position:relative; z-index:1; }
+.sep-inner { display:inline-flex; align-items:center; gap:1.5rem; }
+.sep-line  { width:80px; height:1px; background:linear-gradient(90deg,transparent,var(--gold)); }
+.sep-line.r{ background:linear-gradient(90deg,var(--gold),transparent); }
+.sep-dia   { width:8px; height:8px; background:var(--gold); transform:rotate(45deg); box-shadow:0 0 10px var(--gold); }
 
-/* ════════ CATEGORY SECTION ════════ */
-.cat-section { position: relative; z-index: 1; padding: 7rem 0 0; }
+/* ══════════════════════════════════════
+   CATEGORY SECTION
+══════════════════════════════════════ */
+.cat { position:relative; z-index:1; padding:7rem 0 0; }
 
-.cat-header {
-  max-width: 1200px; margin: 0 auto; padding: 0 4rem 3.5rem;
-  display: flex; align-items: flex-end; gap: 3rem;
-  border-bottom: 1px solid var(--border); position: relative;
+.cat-head {
+  max-width:1200px; margin:0 auto; padding:0 4rem 3.5rem;
+  display:flex; align-items:flex-end; gap:3rem;
+  border-bottom:1px solid var(--border); position:relative;
 }
-.cat-header::before, .cat-header::after {
-  content: ''; position: absolute;
-  width: 22px; height: 22px; border-color: var(--gold); border-style: solid;
+.cat-head::before {
+  content:''; position:absolute; top:0; left:4rem;
+  width:20px; height:20px; border-top:1px solid var(--gold); border-left:1px solid var(--gold);
 }
-.cat-header::before { top: 0; left: 4rem; border-width: 1px 0 0 1px; }
-.cat-header::after  { bottom: -1px; right: 0; border-width: 0 1px 1px 0; }
+.cat-head::after {
+  content:''; position:absolute; bottom:-1px; right:0;
+  width:20px; height:20px; border-bottom:1px solid var(--gold); border-right:1px solid var(--gold);
+}
 .cat-num {
-  font-family: 'Cinzel', serif; font-size: 6.5rem; font-weight: 900; line-height: 1;
-  color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.18); user-select: none; flex-shrink: 0;
+  font-family:'Cinzel',serif; font-size:6rem; font-weight:900; line-height:1;
+  color:transparent; -webkit-text-stroke:1px rgba(201,168,76,.15); user-select:none; flex-shrink:0;
 }
-.cat-tag { font-size: .7rem; letter-spacing: .35em; color: var(--gold); text-transform: uppercase; margin-bottom: .7rem; font-family: 'Cinzel', serif; }
-.cat-title {
-  font-family: 'Cinzel', serif; font-size: clamp(1.7rem, 3vw, 2.8rem); font-weight: 600;
-  color: var(--text-bright); letter-spacing: .07em; margin-bottom: .9rem;
-}
-.cat-desc { font-size: 1.05rem; font-style: italic; color: var(--text-dim); line-height: 1.75; max-width: 460px; }
+.cat-tag   { font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.35em; color:var(--gold); text-transform:uppercase; margin-bottom:.6rem; }
+.cat-title { font-family:'Cinzel',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:600; color:var(--text-bright); letter-spacing:.07em; margin-bottom:.8rem; }
+.cat-desc  { font-size:1.05rem; font-style:italic; color:var(--text-dim); line-height:1.75; max-width:440px; }
 
-/* ════════ WORK ITEMS ════════ */
-.works-container { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
+/* ══════════════════════════════════════
+   WORK ITEMS
+══════════════════════════════════════ */
+.works { max-width:1200px; margin:0 auto; padding:0 4rem; }
 
-.work-item {
+.work {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 0;
   border-bottom: 1px solid var(--border);
-  padding: 4.5rem 0;
+  padding: 4rem 0;
+}
+.work:last-child { border-bottom: none; }
+.work:nth-child(even) .wimg { order: 2; }
+.work:nth-child(even) .winfo { order: 1; padding-right: 3.5rem; padding-left: 0; }
+
+/* IMAGE SIDE — 심플하게 */
+.wimg {
   position: relative;
-}
-.work-item:last-child { border-bottom: none; }
-.work-item:nth-child(even) .work-visual { order: 2; }
-.work-item:nth-child(even) .work-info   { order: 1; padding-right: 4rem; padding-left: 0; }
-
-/* ── Image box ── */
-.work-visual {
-  display: block; width: 100%;
-  position: relative; border: 1px solid var(--border);
+  border: 1px solid var(--border);
   overflow: hidden;
-  opacity: 0;
-  transform: translateX(-35px);
-  transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1);
   cursor: zoom-in;
+  background: var(--panel);
 }
-.work-item:nth-child(even) .work-visual { transform: translateX(35px); }
-.work-item.revealed .work-visual { opacity: 1 !important; transform: translateX(0) !important; }
+/* 16:10 비율 유지 */
+.wimg-ratio {
+  position: relative;
+  width: 100%;
+  padding-top: 62.5%;
+}
+.wimg-ratio img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .8s ease, filter .5s ease;
+  filter: brightness(.85);
+}
+.work:hover .wimg-ratio img {
+  transform: scale(1.04);
+  filter: brightness(1);
+}
+.wimg-badge {
+  position: absolute; top: 1rem; right: 1rem; z-index: 2;
+  background: rgba(28,25,23,.9); border: 1px solid var(--border-hi);
+  padding: .28rem .8rem;
+  font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .22em;
+  color: var(--gold-light); text-transform: uppercase;
+}
+.wimg-zoom {
+  position: absolute; bottom: .9rem; left: 50%; transform: translateX(-50%);
+  z-index: 2; font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(201,168,76,.65); opacity: 0; transition: opacity .3s; white-space: nowrap;
+  pointer-events: none;
+}
+.wimg-zoom::before { content: '⊕  '; }
+.work:hover .wimg-zoom { opacity: 1; }
 
-.work-visual-ratio {
-  display: block; width: 100%; padding-top: 62.5%; position: relative;
-}
-.work-visual-ratio > img,
-.work-visual-ratio > .work-ph {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-}
-.work-visual-ratio > img {
-  object-fit: cover; display: block;
-  transition: transform 1.2s cubic-bezier(.2,.8,.2,1), filter .6s;
-  filter: saturate(.8) brightness(.8);
-}
-.work-item:hover .work-visual-ratio > img { transform: scale(1.04); filter: saturate(1) brightness(.95); }
-.work-visual-ratio > .work-ph {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 1rem; background: var(--panel); transition: filter .5s; filter: brightness(.8);
-}
-.work-item:hover .work-ph { filter: brightness(1); }
-.ph-icon { font-size: 2.5rem; color: var(--gold); opacity: .25; }
-.ph-label { font-size: .65rem; letter-spacing: .3em; color: var(--text-dim); text-transform: uppercase; }
-
-.work-visual::before {
+/* corner glow overlay */
+.wimg::before {
   content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(201,168,76,.06) 0%, transparent 55%);
 }
-.work-visual::after {
-  content: ''; position: absolute; inset: 7px; z-index: 2; pointer-events: none;
-  border: 1px solid rgba(201,168,76,0.08); transition: border-color .35s;
-}
-.work-item:hover .work-visual::after { border-color: rgba(201,168,76,0.25); }
 
-.work-badge {
-  position: absolute; top: 1.1rem; right: 1.1rem; z-index: 3;
-  background: rgba(28,25,23,.92); border: 1px solid var(--border-bright);
-  padding: .3rem .85rem; font-family: 'Cinzel', serif;
-  font-size: .62rem; letter-spacing: .25em; color: var(--gold-light); text-transform: uppercase;
+/* INFO SIDE */
+.winfo {
+  padding-left: 3.5rem;
+  display: flex; flex-direction: column; gap: 1.2rem;
 }
-.zoom-hint {
-  position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
-  z-index: 3; font-size: .6rem; letter-spacing: .25em; text-transform: uppercase;
-  color: rgba(201,168,76,.6); display: flex; align-items: center; gap: .4rem;
-  opacity: 0; transition: opacity .3s; white-space: nowrap; pointer-events: none;
-}
-.zoom-hint::before { content: '⊕'; font-size: .85rem; }
-.work-item:hover .zoom-hint { opacity: 1; }
-
-/* ── Info side ── */
-.work-info {
-  padding-left: 4rem;
-  display: flex; flex-direction: column; gap: 1.4rem;
-  opacity: 0; transform: translateX(35px);
-  transition: opacity 1s .22s cubic-bezier(.2,.8,.2,1), transform 1s .22s cubic-bezier(.2,.8,.2,1);
-}
-.work-item:nth-child(even) .work-info { transform: translateX(-35px); }
-.work-item.revealed .work-info { opacity: 1 !important; transform: translateX(0) !important; }
-
-.work-index { font-family: 'Cinzel', serif; font-size: .7rem; letter-spacing: .3em; color: var(--gold); }
-.work-title { font-family: 'Cinzel', serif; font-size: clamp(1.25rem, 2vw, 1.8rem); font-weight: 600; color: var(--text-bright); letter-spacing: .06em; line-height: 1.25; }
-.work-divider { width: 48px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
-.work-desc { font-size: 1.05rem; line-height: 1.85; color: var(--text); font-weight: 300; }
-.work-tags { display: flex; flex-wrap: wrap; gap: .55rem; }
-.work-tag {
-  font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
-  padding: .28rem .8rem; border: 1px solid var(--border); color: var(--text-dim);
+.winfo-idx   { font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.3em; color:var(--gold); }
+.winfo-title { font-family:'Cinzel',serif; font-size:clamp(1.2rem,2vw,1.75rem); font-weight:600; color:var(--text-bright); letter-spacing:.06em; line-height:1.3; }
+.winfo-line  { width:44px; height:1px; background:linear-gradient(90deg,var(--gold),transparent); }
+.winfo-desc  { font-size:1rem; line-height:1.9; color:var(--text); font-weight:300; }
+.winfo-tags  { display:flex; flex-wrap:wrap; gap:.5rem; }
+.winfo-tag {
+  font-size:.6rem; letter-spacing:.18em; text-transform:uppercase;
+  padding:.25rem .75rem; border:1px solid var(--border); color:var(--text-dim);
   transition: border-color .3s, color .3s;
 }
-.work-item:hover .work-tag { border-color: rgba(201,168,76,.32); color: var(--gold-light); }
+.work:hover .winfo-tag { border-color:rgba(201,168,76,.3); color:var(--gold-light); }
 
-/* ════════ ABOUT ════════ */
+/* ══════════════════════════════════════
+   ABOUT
+══════════════════════════════════════ */
 #about {
-  position: relative; z-index: 1;
-  padding: 10rem 4rem 6rem; max-width: 1200px; margin: 0 auto; text-align: center;
+  position:relative; z-index:1; text-align:center;
+  padding:10rem 4rem 6rem; max-width:1200px; margin:0 auto;
 }
-.about-ornament { width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto 3.5rem; }
-.about-heading { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 600; color: var(--text-bright); letter-spacing: .1em; margin-bottom: 1.5rem; }
-.about-text { font-size: 1.1rem; font-style: italic; line-height: 1.95; color: var(--text-dim); max-width: 580px; margin: 0 auto 3rem; }
-.contact-btn {
-  display: inline-flex; align-items: center; gap: 1rem;
-  padding: .9rem 2.6rem; border: 1px solid var(--border-bright);
-  color: var(--gold-light); text-decoration: none;
-  font-family: 'Cinzel', serif; font-size: .82rem; letter-spacing: .28em; text-transform: uppercase;
-  transition: color .3s, box-shadow .3s; background: transparent; cursor: pointer; position: relative;
+.about-orn { width:160px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:0 auto 3rem; }
+.about-h   { font-family:'Cinzel',serif; font-size:clamp(1.8rem,3.5vw,3rem); font-weight:600; color:var(--text-bright); letter-spacing:.1em; margin-bottom:1.4rem; }
+.about-p   { font-size:1.1rem; font-style:italic; line-height:2; color:var(--text-dim); max-width:560px; margin:0 auto 3rem; }
+.about-btn {
+  display:inline-flex; align-items:center; gap:1rem;
+  padding:.9rem 2.6rem; border:1px solid var(--border-hi);
+  color:var(--gold-light); text-decoration:none;
+  font-family:'Cinzel',serif; font-size:.82rem; letter-spacing:.25em; text-transform:uppercase;
+  transition: box-shadow .3s, color .3s; position:relative; overflow:hidden;
 }
-.contact-btn::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(201,168,76,.07), transparent);
-  opacity: 0; transition: opacity .3s;
-}
-.contact-btn:hover { color: var(--gold-pale); box-shadow: 0 0 30px rgba(201,168,76,.12); }
-.contact-btn:hover::before { opacity: 1; }
+.about-btn:hover { color:var(--gold-pale); box-shadow:0 0 30px rgba(201,168,76,.15); }
 
 footer {
-  position: relative; z-index: 1; text-align: center;
-  padding: 2.5rem; border-top: 1px solid var(--border);
-  font-size: .7rem; letter-spacing: .2em; color: var(--text-dim);
+  position:relative; z-index:1; text-align:center;
+  padding:2.2rem; border-top:1px solid var(--border);
+  font-size:.68rem; letter-spacing:.2em; color:var(--text-dim);
 }
 
-/* ════════ LIGHTBOX ════════ */
-#lightbox {
-  position: fixed; inset: 0; z-index: 10000;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity .4s cubic-bezier(.2,.8,.2,1);
+/* ══════════════════════════════════════
+   LIGHTBOX
+══════════════════════════════════════ */
+#lb {
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition: opacity .35s ease;
 }
-#lightbox.open { opacity: 1; pointer-events: all; }
-#lb-backdrop {
-  position: absolute; inset: 0;
-  background: rgba(20,18,16,0.95);
-  backdrop-filter: blur(20px);
+#lb.open { opacity:1; pointer-events:all; }
+
+#lb-bg {
+  position:absolute; inset:0;
+  background:rgba(16,14,12,.95); backdrop-filter:blur(22px);
 }
-#lb-frame {
-  position: relative; z-index: 1;
-  display: flex; flex-direction: column;
-  max-width: 95vw;
-  transform: scale(.88) translateY(20px);
-  transition: transform .45s cubic-bezier(.2,.8,.2,1);
+#lb-box {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column;
+  transform: scale(.9); transition: transform .4s cubic-bezier(.2,.8,.2,1);
 }
-#lightbox.open #lb-frame { transform: scale(1) translateY(0); }
-#lb-frame::before, #lb-frame::after {
-  content: ''; position: absolute;
-  width: 28px; height: 28px;
-  border-color: var(--gold); border-style: solid; z-index: 2; pointer-events: none;
+#lb.open #lb-box { transform: scale(1); }
+
+/* corner deco */
+#lb-box::before, #lb-box::after {
+  content:''; position:absolute; width:28px; height:28px;
+  border-color:var(--gold); border-style:solid; pointer-events:none;
   transition: width .4s, height .4s;
 }
-#lb-frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
-#lb-frame::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
-#lightbox.open #lb-frame::before,
-#lightbox.open #lb-frame::after { width: 38px; height: 38px; }
+#lb-box::before { top:-1px; left:-1px; border-width:1px 0 0 1px; }
+#lb-box::after  { bottom:-1px; right:-1px; border-width:0 1px 1px 0; }
+#lb.open #lb-box::before,
+#lb.open #lb-box::after { width:40px; height:40px; }
 
-#lb-img-wrap {
-  border: 1px solid var(--border-bright);
-  background: var(--panel);
-  overflow: auto;
-  max-width: 92vw;
-  max-height: 78vh;
-  min-width: 320px; min-height: 200px;
-  box-shadow: 0 0 80px rgba(0,0,0,.8), 0 0 40px rgba(201,168,76,.06);
-  position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold) var(--panel);
+#lb-img {
+  border:1px solid var(--border-hi);
+  background:var(--panel);
+  overflow:auto;
+  max-width:90vw; max-height:76vh;
+  min-width:280px; min-height:180px;
+  display:flex; align-items:center; justify-content:center;
+  scrollbar-width:thin; scrollbar-color:var(--gold) var(--panel);
 }
-#lb-img-wrap::-webkit-scrollbar { width: 4px; height: 4px; }
-#lb-img-wrap::-webkit-scrollbar-track { background: var(--panel); }
-#lb-img-wrap::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
-#lb-img-wrap img {
-  display: block; width: auto; height: auto;
-  max-width: none; max-height: none; cursor: zoom-out;
-}
-#lb-img-wrap.small-img {
-  display: flex; align-items: center; justify-content: center;
-}
-#lb-img-wrap.small-img img { cursor: default; }
-#lb-img-wrap .lb-ph {
-  width: 640px; max-width: 88vw; height: 400px; max-height: 74vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
-}
-#lb-img-wrap .lb-ph .ph-icon { font-size: 3.5rem; opacity: .25; color: var(--gold); }
-#lb-img-wrap .lb-ph .ph-label { font-size: .72rem; letter-spacing: .3em; color: var(--text-dim); text-transform: uppercase; }
+#lb-img::-webkit-scrollbar { width:4px; height:4px; }
+#lb-img::-webkit-scrollbar-thumb { background:var(--gold); }
+#lb-img img { display:block; max-width:88vw; max-height:74vh; object-fit:contain; }
 
-#lb-caption {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: .85rem 1.2rem .7rem;
-  border: 1px solid var(--border); border-top: none;
-  background: rgba(28,25,23,0.95); gap: 2rem;
+#lb-cap {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.8rem 1.1rem; gap:1.5rem;
+  border:1px solid var(--border); border-top:none;
+  background:rgba(28,25,23,.97);
 }
-#lb-cap-left { display: flex; flex-direction: column; gap: .2rem; }
-#lb-cap-index { font-family: 'Cinzel', serif; font-size: .62rem; letter-spacing: .3em; color: var(--gold); }
-#lb-cap-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: var(--text-bright); letter-spacing: .06em; }
-#lb-cap-right { display: flex; gap: 1rem; align-items: center; flex-shrink: 0; }
-#lb-img-size { font-family: 'Cinzel', serif; font-size: .62rem; letter-spacing: .18em; color: var(--text-dim); }
-#lb-counter { font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .2em; color: var(--text-dim); }
-.lb-arrow {
-  width: 38px; height: 38px; border: 1px solid var(--border);
-  background: transparent; color: var(--gold-light); font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: border-color .25s, background .25s, transform .2s;
+#lb-cap-l { display:flex; flex-direction:column; gap:.18rem; }
+#lb-badge { font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.28em; color:var(--gold); }
+#lb-title { font-family:'Cinzel',serif; font-size:.95rem; font-weight:600; color:var(--text-bright); letter-spacing:.06em; }
+#lb-cap-r { display:flex; gap:.8rem; align-items:center; flex-shrink:0; }
+#lb-size  { font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.15em; color:var(--text-dim); }
+#lb-count { font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.2em; color:var(--text-dim); }
+
+.lb-btn {
+  width:36px; height:36px; border:1px solid var(--border);
+  background:transparent; color:var(--gold-light); font-size:.95rem;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:border-color .2s, background .2s;
 }
-.lb-arrow:hover { border-color: var(--gold); background: rgba(201,168,76,.08); transform: scale(1.08); }
+.lb-btn:hover { border-color:var(--gold); background:rgba(201,168,76,.1); }
+
 #lb-close {
-  position: absolute; top: -14px; right: -14px; z-index: 10;
-  width: 30px; height: 30px;
-  background: #1C1917; border: 1px solid var(--border-bright);
-  color: var(--gold-light); font-size: .8rem;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: background .2s, transform .3s;
+  position:absolute; top:-13px; right:-13px; z-index:10;
+  width:28px; height:28px;
+  background:#1C1917; border:1px solid var(--border-hi);
+  color:var(--gold-light); font-size:.75rem;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:transform .3s, background .2s;
 }
-#lb-close:hover { background: rgba(201,168,76,.15); transform: rotate(90deg) scale(1.1); }
+#lb-close:hover { transform:rotate(90deg); background:rgba(201,168,76,.15); }
 
-/* ════════ ANIMATIONS ════════ */
-@keyframes h-appear  { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes h-line    { from { width: 0; opacity: 0; } to { width: 200px; opacity: 1; } }
-@keyframes s-pulse   { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
-@keyframes spin-s    { to { transform: rotate(360deg); } }
-@keyframes spin-r    { to { transform: rotate(-360deg); } }
-@keyframes float     { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-@keyframes emblem-in { from { opacity: 0; transform: scale(.6) rotate(-15deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+/* ══════════════════════════════════════
+   KEYFRAMES
+══════════════════════════════════════ */
+@keyframes spin1  { to { transform:rotate(360deg); } }
+@keyframes spin2  { to { transform:rotate(-360deg); } }
+@keyframes float  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes pulse  { 0%,100%{opacity:.35} 50%{opacity:1} }
+@keyframes fadein { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes linein { from{width:0;opacity:0} to{width:200px;opacity:1} }
 @keyframes pdrift {
-  0%   { opacity: 0; transform: translate(0,0); }
-  20%  { opacity: .55; } 80%  { opacity: .25; }
-  100% { opacity: 0; transform: translate(var(--dx,20px), var(--dy,-90px)); }
+  0%{opacity:0;transform:translate(0,0)}
+  20%{opacity:.5} 80%{opacity:.2}
+  100%{opacity:0;transform:translate(var(--dx,20px),var(--dy,-90px))}
 }
-.er1 { animation: spin-s 18s linear infinite; transform-origin: 50% 50%; }
-.er2 { animation: spin-r 24s linear infinite; transform-origin: 50% 50%; }
-.ec  { animation: float 4s ease-in-out infinite; transform-origin: 50% 50%; }
-.hero-emblem { animation: emblem-in 1.8s cubic-bezier(.2,.8,.2,1) both; }
 
-/* ════════ RESPONSIVE ════════ */
-@media (max-width: 1000px) {
-  .nav-links { position: static; transform: none; display: none; }
-  .work-item { grid-template-columns: 1fr; padding: 3rem 0; gap: 2rem; }
-  .work-item:nth-child(even) .work-visual { order: 0; }
-  .work-item:nth-child(even) .work-info   { order: 1; padding-right: 0; padding-left: 0; }
-  .work-info { padding-left: 0; }
-  .cat-header { padding: 0 1.5rem 2.5rem; flex-direction: column; gap: 1rem; }
-  .cat-num { font-size: 3.5rem; }
-  .works-container { padding: 0 1.5rem; }
-  #cat-nav { display: none; }
-  #nav { padding: 0 1.5rem; }
-  #about { padding: 6rem 1.5rem 4rem; }
+.hero-emblem { animation:fadein 1.8s cubic-bezier(.2,.8,.2,1) both; }
+.hero-sub    { animation:fadein 1.5s .4s both; }
+.hero-h1     { animation:fadein 1.8s .2s both; }
+.hero-line   { animation:linein 1.5s 1s both; }
+.hero-desc   { animation:fadein 1.5s 1.1s both; }
+.scroll-cue  { animation:fadein 1.5s 1.8s both; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:900px){
+  .nav-center, #dotnav { display:none; }
+  #nav { padding:0 1.5rem; }
+  .cat-head { padding:0 1.5rem 2.5rem; flex-direction:column; gap:1rem; }
+  .cat-num  { font-size:3.5rem; }
+  .works    { padding:0 1.5rem; }
+  .work     { grid-template-columns:1fr; gap:2rem; padding:3rem 0; }
+  .work:nth-child(even) .wimg  { order:0; }
+  .work:nth-child(even) .winfo { order:1; padding-right:0; }
+  .winfo { padding-left:0; }
+  #about { padding:6rem 1.5rem 4rem; }
 }
 </style>
 </head>
@@ -441,743 +402,696 @@ footer {
 <!-- NAV -->
 <nav id="nav">
   <a class="nav-logo" href="#hero">PORTFOLIO</a>
-  <ul class="nav-links">
-    <li><a href="#cat-0">Post Project</a></li>
-    <li><a href="#cat-1">MirM</a></li>
-    <li><a href="#cat-2">MirM China</a></li>
+  <ul class="nav-center">
+    <li><a href="#cat-0" data-cat="0">Post Project</a></li>
+    <li><a href="#cat-1" data-cat="1">MirM</a></li>
+    <li><a href="#cat-2" data-cat="2">MirM China</a></li>
     <li><a href="#about">About</a></li>
   </ul>
-  <a class="nav-about" href="#about">About</a>
 </nav>
 
-<!-- CAT DOT NAV -->
-<div id="cat-nav">
-  <div class="cat-dot active" data-target="cat-0"><span class="cat-dot-label">Post Project</span><span class="cat-dot-circle"></span></div>
-  <div class="cat-dot" data-target="cat-1"><span class="cat-dot-label">MirM</span><span class="cat-dot-circle"></span></div>
-  <div class="cat-dot" data-target="cat-2"><span class="cat-dot-label">MirM China</span><span class="cat-dot-circle"></span></div>
+<!-- DOT NAV -->
+<div id="dotnav">
+  <div class="dn-item on" data-go="cat-0"><span class="dn-label">Post Project</span><span class="dn-dot"></span></div>
+  <div class="dn-item"    data-go="cat-1"><span class="dn-label">MirM</span><span class="dn-dot"></span></div>
+  <div class="dn-item"    data-go="cat-2"><span class="dn-label">MirM China</span><span class="dn-dot"></span></div>
 </div>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-glow"></div>
-  <div class="particle" style="left:14%;top:32%;--d:9s;--dl:0s;--dx:28px;--dy:-100px"></div>
-  <div class="particle" style="left:24%;top:62%;--d:12s;--dl:2s;--dx:-22px;--dy:-115px"></div>
-  <div class="particle" style="left:73%;top:42%;--d:10s;--dl:1s;--dx:18px;--dy:-90px"></div>
-  <div class="particle" style="left:84%;top:68%;--d:8s;--dl:3s;--dx:-20px;--dy:-105px"></div>
-  <div class="particle" style="left:50%;top:78%;--d:11s;--dl:1.5s;--dx:12px;--dy:-125px"></div>
+  <div class="ptc" style="left:14%;top:30%;--d:9s;--dl:0s;--dx:28px;--dy:-110px"></div>
+  <div class="ptc" style="left:25%;top:65%;--d:12s;--dl:2s;--dx:-22px;--dy:-120px"></div>
+  <div class="ptc" style="left:74%;top:40%;--d:10s;--dl:1s;--dx:18px;--dy:-95px"></div>
+  <div class="ptc" style="left:83%;top:70%;--d:8s;--dl:3s;--dx:-20px;--dy:-100px"></div>
+  <div class="ptc" style="left:50%;top:80%;--d:11s;--dl:1.5s;--dx:12px;--dy:-130px"></div>
+
   <div class="hero-emblem">
     <svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle class="er1" cx="65" cy="65" r="61" stroke="rgba(201,168,76,0.28)" stroke-width="1" stroke-dasharray="5 4"/>
-      <circle class="er2" cx="65" cy="65" r="48" stroke="rgba(201,168,76,0.45)" stroke-width="1" stroke-dasharray="3 7"/>
-      <circle cx="65" cy="65" r="37" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+      <circle class="er1" cx="65" cy="65" r="61" stroke="rgba(201,168,76,.28)" stroke-width="1" stroke-dasharray="5 4"/>
+      <circle class="er2" cx="65" cy="65" r="48" stroke="rgba(201,168,76,.45)" stroke-width="1" stroke-dasharray="3 7"/>
+      <circle cx="65" cy="65" r="37" stroke="rgba(201,168,76,.28)" stroke-width="1"/>
       <g class="ec">
-        <polygon points="65,24 94,65 65,106 36,65" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.05)"/>
-        <polygon points="65,36 84,65 65,94 46,65" stroke="rgba(201,168,76,0.38)" stroke-width=".8" fill="none"/>
+        <polygon points="65,24 94,65 65,106 36,65" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,.05)"/>
+        <polygon points="65,36 84,65 65,94 46,65" stroke="rgba(201,168,76,.38)" stroke-width=".8" fill="none"/>
         <circle cx="65" cy="65" r="5" fill="#C9A84C" opacity=".85"/>
-        <circle cx="65" cy="65" r="9" stroke="rgba(201,168,76,0.38)" stroke-width="1" fill="none"/>
+        <circle cx="65" cy="65" r="9" stroke="rgba(201,168,76,.38)" stroke-width="1" fill="none"/>
         <circle cx="65" cy="24" r="2.5" fill="#C9A84C" opacity=".55"/>
         <circle cx="94" cy="65" r="2.5" fill="#C9A84C" opacity=".55"/>
         <circle cx="65" cy="106" r="2.5" fill="#C9A84C" opacity=".55"/>
         <circle cx="36" cy="65" r="2.5" fill="#C9A84C" opacity=".55"/>
       </g>
-      <g stroke="rgba(201,168,76,0.5)" stroke-width="1.5">
-        <line x1="65" y1="3" x2="65" y2="12"/>
-        <line x1="65" y1="118" x2="65" y2="127"/>
-        <line x1="3" y1="65" x2="12" y2="65"/>
-        <line x1="118" y1="65" x2="127" y2="65"/>
+      <g stroke="rgba(201,168,76,.5)" stroke-width="1.5">
+        <line x1="65" y1="3" x2="65" y2="12"/><line x1="65" y1="118" x2="65" y2="127"/>
+        <line x1="3" y1="65" x2="12" y2="65"/><line x1="118" y1="65" x2="127" y2="65"/>
       </g>
     </svg>
   </div>
   <p class="hero-sub">Game UI / UX Designer</p>
-  <h1 class="hero-title"><span>Portfolio</span></h1>
+  <h1 class="hero-h1"><span>Portfolio</span></h1>
   <div class="hero-line"></div>
   <p class="hero-desc">인터페이스를 통해 세계관을 완성합니다</p>
-  <div class="scroll-hint">Scroll</div>
+  <div class="scroll-cue">Scroll</div>
 </section>
 
-<!-- ════════ CAT 0 — MirM ════════ -->
-<div class="cat-sep"><div class="cat-sep-inner"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line r"></div></div></div>
-<section class="cat-section" id="cat-0">
-  <div class="cat-header">
+<!-- ══════════════════════════════════════
+     POST PROJECT
+══════════════════════════════════════ -->
+<div class="sep"><div class="sep-inner"><div class="sep-line"></div><div class="sep-dia"></div><div class="sep-line r"></div></div></div>
+<section class="cat" id="cat-0">
+  <div class="cat-head">
     <div class="cat-num">01</div>
-    <div class="cat-info">
+    <div>
       <div class="cat-tag">Project 01</div>
       <h2 class="cat-title">Post Project</h2>
       <p class="cat-desc">포스트 프로젝트의 UI 작업물입니다. HUD, 인벤토리, 퀘스트 시스템, 캐릭터 커스터마이징까지 게임 전반의 인터페이스 설계와 위젯 구성을 담았습니다.</p>
     </div>
   </div>
-  <div class="works-container">
+  <div class="works">
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 01" data-title="HUD">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/01HUD.png" alt="HUD"></div>
-        <span class="work-badge">Post · 01</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="Post · 01" data-title="HUD">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/01HUD.png" alt="HUD"></div>
+        <span class="wimg-badge">Post · 01</span>
+        <span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 01</span>
-        <h3 class="work-title">HUD</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">체력, 마나, 쿨타임 게이지를 포함한 메인 전투 HUD입니다. 화면 하단 코너 배치로 시야 간섭을 최소화하면서도 빠른 정보 파악이 가능하도록 설계했습니다.</p>
-        <div class="work-tags"><span class="work-tag">HUD</span><span class="work-tag">UI Design</span><span class="work-tag">Unreal Engine</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 01</span>
+        <h3 class="winfo-title">HUD</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">체력, 마나, 쿨타임 게이지를 포함한 메인 전투 HUD입니다. 화면 하단 코너 배치로 시야 간섭을 최소화하면서도 빠른 정보 파악이 가능하도록 설계했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">HUD</span><span class="winfo-tag">UI Design</span><span class="winfo-tag">Unreal Engine</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 02" data-title="Equipment — White">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/02Equipment_W.png" alt="Equipment White"></div>
-        <span class="work-badge">Post · 02</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="Post · 02" data-title="Equipment — White">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/02Equipment_W.png" alt="Equipment White"></div>
+        <span class="wimg-badge">Post · 02</span>
+        <span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 02</span>
-        <h3 class="work-title">Equipment — White</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">장비 착용 화면의 화이트 테마입니다. 밝은 배경으로 아이템 아이콘의 가시성을 극대화하고, 각 장비 슬롯을 캐릭터 실루엣 주변에 배치하여 직관적인 착용 경험을 제공합니다.</p>
-        <div class="work-tags"><span class="work-tag">Equipment</span><span class="work-tag">White Theme</span><span class="work-tag">Figma</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 03" data-title="Inventory — White">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/03Inven_White.png" alt="Inventory White"></div>
-        <span class="work-badge">Post · 03</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 03</span>
-        <h3 class="work-title">Inventory — White</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">그리드 기반 인벤토리 화이트 테마입니다. 아이템 등급에 따른 테두리 색상 구분과 수량 표시를 포함하며 밝은 UI로 장시간 플레이 시에도 눈의 피로를 줄였습니다.</p>
-        <div class="work-tags"><span class="work-tag">Inventory</span><span class="work-tag">White Theme</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 02</span>
+        <h3 class="winfo-title">Equipment — White</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">장비 착용 화면의 화이트 테마입니다. 밝은 배경으로 아이템 아이콘의 가시성을 극대화하고, 각 장비 슬롯을 캐릭터 실루엣 주변에 배치하여 직관적인 착용 경험을 제공합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Equipment</span><span class="winfo-tag">White Theme</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 04" data-title="Inventory — Black">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/04Iven_Black.png" alt="Inventory Black"></div>
-        <span class="work-badge">Post · 04</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="Post · 03" data-title="Inventory — White">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/03Inven_White.png" alt="Inventory White"></div>
+        <span class="wimg-badge">Post · 03</span>
+        <span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 04</span>
-        <h3 class="work-title">Inventory — Black</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">동일한 인벤토리 시스템의 다크 테마입니다. 어두운 환경에서의 플레이에 최적화되어 있으며 아이콘의 발광 효과와 골드 포인트 컬러로 고급스러운 분위기를 연출합니다.</p>
-        <div class="work-tags"><span class="work-tag">Inventory</span><span class="work-tag">Dark Theme</span><span class="work-tag">Unreal Engine</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 05" data-title="Quest Main Page">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/05Quest_Main_Page.png" alt="Quest Main Page"></div>
-        <span class="work-badge">Post · 05</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 05</span>
-        <h3 class="work-title">Quest Main Page</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">퀘스트 메인 화면입니다. 진행 중인 퀘스트 목록, 완료 조건, 보상 정보를 한눈에 파악할 수 있도록 구성하였으며 카테고리별 탭 구분으로 탐색을 편리하게 했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Quest</span><span class="work-tag">UI Design</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 03</span>
+        <h3 class="winfo-title">Inventory — White</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">그리드 기반 인벤토리 화이트 테마입니다. 아이템 등급에 따른 테두리 색상 구분과 수량 표시를 포함하며 밝은 UI로 장시간 플레이 시에도 눈의 피로를 줄였습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Inventory</span><span class="winfo-tag">White Theme</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 06" data-title="Name Slot">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/06NameSlot.png" alt="Name Slot"></div>
-        <span class="work-badge">Post · 06</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="Post · 04" data-title="Inventory — Black">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/04Iven_Black.png" alt="Inventory Black"></div>
+        <span class="wimg-badge">Post · 04</span>
+        <span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 06</span>
-        <h3 class="work-title">Name Slot</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">캐릭터 이름 표시를 위한 네임슬롯 위젯입니다. 캐릭터 유형에 따른 색상 코드로 아군/적군/NPC를 즉시 구분할 수 있으며 상황에 따라 동적으로 표시됩니다.</p>
-        <div class="work-tags"><span class="work-tag">Widget</span><span class="work-tag">UMG</span><span class="work-tag">Unreal Engine</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 07" data-title="위젯 구성">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/07%EC%9C%84%EC%A0%AF%20%EA%B5%AC%EC%84%B1.png" alt="위젯 구성"></div>
-        <span class="work-badge">Post · 07</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 07</span>
-        <h3 class="work-title">위젯 구성</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">퀘스트 UI를 구성하는 위젯 계층 구조입니다. 재사용 가능한 컴포넌트 단위로 설계하여 유지보수성을 높였으며 각 위젯 간 데이터 바인딩 구조를 체계적으로 정리했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Widget Architecture</span><span class="work-tag">UMG</span><span class="work-tag">Component Design</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 04</span>
+        <h3 class="winfo-title">Inventory — Black</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">동일한 인벤토리 시스템의 다크 테마입니다. 아이콘의 발광 효과와 골드 포인트 컬러로 고급스러운 분위기를 연출하며 어두운 환경에서의 플레이에 최적화되어 있습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Inventory</span><span class="winfo-tag">Dark Theme</span><span class="winfo-tag">Unreal Engine</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 08" data-title="컨텐츠 BP 구성">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/08%EC%BB%A8%ED%85%90%EC%B8%A0%20BP%EA%B5%AC%EC%84%B1.png" alt="컨텐츠 BP구성"></div>
-        <span class="work-badge">Post · 08</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="Post · 05" data-title="Quest Main Page">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/05Quest_Main_Page.png" alt="Quest Main Page"></div>
+        <span class="wimg-badge">Post · 05</span>
+        <span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 08</span>
-        <h3 class="work-title">컨텐츠 BP 구성</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">퀘스트 시스템의 블루프린트 구성도입니다. 퀘스트 트리거, 조건 체크, 보상 지급까지의 전체 흐름을 블루프린트로 구현하였으며 UI와 게임 로직 간의 연동 구조를 담았습니다.</p>
-        <div class="work-tags"><span class="work-tag">Blueprint</span><span class="work-tag">Game Logic</span><span class="work-tag">Unreal Engine</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 09" data-title="캐릭터 커스터마이징">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/09%EC%BB%A4%EB%A7%88.png" alt="캐릭터 커스터마이징"></div>
-        <span class="work-badge">Post · 09</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 09</span>
-        <h3 class="work-title">캐릭터 커스터마이징</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">캐릭터 외형을 자유롭게 조정하는 커스터마이징 메인 화면입니다. 헤어, 얼굴형, 체형, 의상 등 다양한 옵션을 카테고리별로 정리하여 실시간 3D 프리뷰와 함께 즉각적인 피드백을 제공합니다.</p>
-        <div class="work-tags"><span class="work-tag">Character UI</span><span class="work-tag">Customization</span><span class="work-tag">Unreal Engine</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 05</span>
+        <h3 class="winfo-title">Quest Main Page</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">퀘스트 메인 화면입니다. 진행 중인 퀘스트 목록, 완료 조건, 보상 정보를 한눈에 파악할 수 있도록 구성하였으며 카테고리별 탭 구분으로 탐색을 편리하게 했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Quest</span><span class="winfo-tag">UI Design</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="Post · 10" data-title="커스터마이징 디테일">
-        <div class="work-visual-ratio"><img src="Resource/Post_Project/10%EC%BB%A4%EB%A7%88%20Detail.png" alt="커스터마이징 디테일"></div>
-        <span class="work-badge">Post · 10</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="Post · 06" data-title="Name Slot">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/06NameSlot.png" alt="Name Slot"></div>
+        <span class="wimg-badge">Post · 06</span>
+        <span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">Post Project — 10</span>
-        <h3 class="work-title">커스터마이징 디테일</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">세부 슬라이더와 컬러 피커를 활용한 정밀 조정 화면입니다. 피부톤, 눈 색상 등 미세한 옵션까지 조절 가능하며 프리셋 저장 및 불러오기 기능으로 여러 스타일을 손쉽게 관리할 수 있습니다.</p>
-        <div class="work-tags"><span class="work-tag">Detail UI</span><span class="work-tag">Color Picker</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 06</span>
+        <h3 class="winfo-title">Name Slot</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">캐릭터 이름 표시를 위한 네임슬롯 위젯입니다. 캐릭터 유형에 따른 색상 코드로 아군/적군/NPC를 즉시 구분할 수 있으며 상황에 따라 동적으로 표시됩니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Widget</span><span class="winfo-tag">UMG</span><span class="winfo-tag">Unreal Engine</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="Post · 07" data-title="위젯 구성">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/07%EC%9C%84%EC%A0%AF%20%EA%B5%AC%EC%84%B1.png" alt="위젯 구성"></div>
+        <span class="wimg-badge">Post · 07</span>
+        <span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 07</span>
+        <h3 class="winfo-title">위젯 구성</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">퀘스트 UI를 구성하는 위젯 계층 구조입니다. 재사용 가능한 컴포넌트 단위로 설계하여 유지보수성을 높였으며 각 위젯 간 데이터 바인딩 구조를 체계적으로 정리했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Widget</span><span class="winfo-tag">UMG</span><span class="winfo-tag">Component Design</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="Post · 08" data-title="컨텐츠 BP 구성">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/08%EC%BB%A8%ED%85%90%EC%B8%A0%20BP%EA%B5%AC%EC%84%B1.png" alt="컨텐츠 BP구성"></div>
+        <span class="wimg-badge">Post · 08</span>
+        <span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 08</span>
+        <h3 class="winfo-title">컨텐츠 BP 구성</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">퀘스트 시스템의 블루프린트 구성도입니다. 퀘스트 트리거, 조건 체크, 보상 지급까지의 전체 흐름을 블루프린트로 구현하였으며 UI와 게임 로직 간의 연동 구조를 담았습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Blueprint</span><span class="winfo-tag">Game Logic</span><span class="winfo-tag">Unreal Engine</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="Post · 09" data-title="캐릭터 커스터마이징">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/09%EC%BB%A4%EB%A7%88.png" alt="커스터마이징"></div>
+        <span class="wimg-badge">Post · 09</span>
+        <span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 09</span>
+        <h3 class="winfo-title">캐릭터 커스터마이징</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">캐릭터 외형을 자유롭게 조정하는 커스터마이징 메인 화면입니다. 헤어, 얼굴형, 체형, 의상 등 다양한 옵션을 카테고리별로 정리하여 실시간 3D 프리뷰와 함께 즉각적인 피드백을 제공합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Character UI</span><span class="winfo-tag">Customization</span><span class="winfo-tag">Unreal Engine</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="Post · 10" data-title="커스터마이징 디테일">
+        <div class="wimg-ratio"><img src="Resource/Post_Project/10%EC%BB%A4%EB%A7%88%20Detail.png" alt="커스터마이징 디테일"></div>
+        <span class="wimg-badge">Post · 10</span>
+        <span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">Post Project — 10</span>
+        <h3 class="winfo-title">커스터마이징 디테일</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">세부 슬라이더와 컬러 피커를 활용한 정밀 조정 화면입니다. 피부톤, 눈 색상 등 미세한 옵션까지 조절 가능하며 프리셋 저장 기능으로 여러 스타일을 손쉽게 관리할 수 있습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Detail UI</span><span class="winfo-tag">Color Picker</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
   </div>
 </section>
 
-<div class="cat-sep"><div class="cat-sep-inner"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line r"></div></div></div>
-<section class="cat-section" id="cat-1">
-  <div class="cat-header">
+<!-- ══════════════════════════════════════
+     MirM
+══════════════════════════════════════ -->
+<div class="sep"><div class="sep-inner"><div class="sep-line"></div><div class="sep-dia"></div><div class="sep-line r"></div></div></div>
+<section class="cat" id="cat-1">
+  <div class="cat-head">
     <div class="cat-num">02</div>
-    <div class="cat-info">
+    <div>
       <div class="cat-tag">Project 02</div>
       <h2 class="cat-title">MirM</h2>
-      <p class="cat-desc">MirM 프로젝트의 UI 디자인 작업물입니다. HUD, 인벤토리, 장비, 아이콘 등 게임 전반의 인터페이스를 설계하고 구현했습니다.</p>
+      <p class="cat-desc">MirM 프로젝트의 UI 디자인 작업물입니다. HUD, 인벤토리, 장비 시스템, 아이콘 등 게임 전반의 인터페이스를 설계하고 구현했습니다.</p>
     </div>
   </div>
-  <div class="works-container">
+  <div class="works">
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 01" data-title="HUD">
-        <div class="work-visual-ratio"><img src="Resource/MirM/01MirM_HUD.png" alt="MirM HUD"></div>
-        <span class="work-badge">MirM · 01</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 01" data-title="HUD">
+        <div class="wimg-ratio"><img src="Resource/MirM/01MirM_HUD.png" alt="MirM HUD"></div>
+        <span class="wimg-badge">MirM · 01</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 01</span>
-        <h3 class="work-title">HUD</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">MirM의 메인 전투 HUD입니다. 체력, 마나, 스킬 쿨타임 등 핵심 전투 정보를 직관적으로 배치하여 전투 중에도 빠른 상황 판단이 가능하도록 설계했습니다.</p>
-        <div class="work-tags"><span class="work-tag">HUD</span><span class="work-tag">UI Design</span><span class="work-tag">Unreal Engine</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 01</span>
+        <h3 class="winfo-title">HUD</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">MirM의 메인 전투 HUD입니다. 체력, 마나, 스킬 쿨타임 등 핵심 전투 정보를 직관적으로 배치하여 전투 중에도 빠른 상황 판단이 가능하도록 설계했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">HUD</span><span class="winfo-tag">UI Design</span><span class="winfo-tag">Unreal Engine</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 02" data-title="Inventory">
-        <div class="work-visual-ratio"><img src="Resource/MirM/02MirM_Inventory.png" alt="MirM Inventory"></div>
-        <span class="work-badge">MirM · 02</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 02" data-title="Inventory">
+        <div class="wimg-ratio"><img src="Resource/MirM/02MirM_Inventory.png" alt="MirM Inventory"></div>
+        <span class="wimg-badge">MirM · 02</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 02</span>
-        <h3 class="work-title">Inventory</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">그리드 기반 인벤토리 시스템입니다. 아이템 등급별 색상 구분, 수량 표시, 퀵슬롯 연동 기능을 포함하며 드래그 앤 드롭으로 직관적인 아이템 관리가 가능합니다.</p>
-        <div class="work-tags"><span class="work-tag">Inventory</span><span class="work-tag">UI Design</span><span class="work-tag">Figma</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 03" data-title="아이템 정보 팝업">
-        <div class="work-visual-ratio"><img src="Resource/MirM/03%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%A0%95%EB%B3%B4%20%ED%8C%9D%EC%97%85.png" alt="아이템 정보 팝업"></div>
-        <span class="work-badge">MirM · 03</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 03</span>
-        <h3 class="work-title">아이템 정보 팝업</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">아이템 선택 시 표시되는 상세 정보 팝업입니다. 스탯, 등급, 강화 수치, 장착 조건 등 필요한 정보를 명확하게 전달하며 현재 장착 아이템과의 비교 기능을 제공합니다.</p>
-        <div class="work-tags"><span class="work-tag">Popup</span><span class="work-tag">Tooltip</span><span class="work-tag">UI Design</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 02</span>
+        <h3 class="winfo-title">Inventory</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">그리드 기반 인벤토리 시스템입니다. 아이템 등급별 색상 구분, 수량 표시, 퀵슬롯 연동 기능을 포함하며 드래그 앤 드롭으로 직관적인 아이템 관리가 가능합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Inventory</span><span class="winfo-tag">UI Design</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 04" data-title="장비 강화">
-        <div class="work-visual-ratio"><img src="Resource/MirM/04%EC%9E%A5%EB%B9%84_%EA%B0%95%ED%99%94.png" alt="장비 강화"></div>
-        <span class="work-badge">MirM · 04</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 03" data-title="아이템 정보 팝업">
+        <div class="wimg-ratio"><img src="Resource/MirM/03%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%A0%95%EB%B3%B4%20%ED%8C%9D%EC%97%85.png" alt="아이템 정보 팝업"></div>
+        <span class="wimg-badge">MirM · 03</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 04</span>
-        <h3 class="work-title">장비 강화</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">장비 강화 시스템 UI입니다. 강화 성공 확률, 재료 아이템, 강화 결과를 직관적으로 표시하며 강화 연출 애니메이션과 연동하여 몰입감 있는 경험을 제공합니다.</p>
-        <div class="work-tags"><span class="work-tag">Enhancement</span><span class="work-tag">System UI</span><span class="work-tag">Unreal Engine</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 05" data-title="장비 감정">
-        <div class="work-visual-ratio"><img src="Resource/MirM/05%EC%9E%A5%EB%B9%84_%EA%B0%90%EC%A0%95.png" alt="장비 감정"></div>
-        <span class="work-badge">MirM · 05</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 05</span>
-        <h3 class="work-title">장비 감정</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">장비 감정 시스템 UI입니다. 감정을 통해 숨겨진 옵션을 발굴하는 과정을 시각적으로 표현하며, 결과 옵션을 명확하게 비교·선택할 수 있도록 설계했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Appraisal</span><span class="work-tag">System UI</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 03</span>
+        <h3 class="winfo-title">아이템 정보 팝업</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">아이템 선택 시 표시되는 상세 정보 팝업입니다. 스탯, 등급, 강화 수치, 장착 조건 등 필요한 정보를 명확하게 전달하며 현재 장착 아이템과의 비교 기능을 제공합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Popup</span><span class="winfo-tag">Tooltip</span><span class="winfo-tag">UI Design</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 06" data-title="장비 축복">
-        <div class="work-visual-ratio"><img src="Resource/MirM/06%EC%9E%A5%EB%B9%84_%EC%B6%95%EB%B3%B5.png" alt="장비 축복"></div>
-        <span class="work-badge">MirM · 06</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 04" data-title="장비 강화">
+        <div class="wimg-ratio"><img src="Resource/MirM/04%EC%9E%A5%EB%B9%84_%EA%B0%95%ED%99%94.png" alt="장비 강화"></div>
+        <span class="wimg-badge">MirM · 04</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 06</span>
-        <h3 class="work-title">장비 축복</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">장비 축복 시스템 UI입니다. 축복 재료와 성공 확률을 명확히 제시하며, 축복 효과 적용 후 변화된 스탯을 즉시 확인할 수 있는 비교 레이아웃으로 설계했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Blessing</span><span class="work-tag">System UI</span><span class="work-tag">Unreal Engine</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 07" data-title="탈것">
-        <div class="work-visual-ratio"><img src="Resource/MirM/07%ED%83%88%EA%B2%83.png" alt="탈것"></div>
-        <span class="work-badge">MirM · 07</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 07</span>
-        <h3 class="work-title">탈것</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">탈것 시스템 UI입니다. 보유한 탈것 목록, 스탯 정보, 스킨 변경 기능을 통합하여 관리할 수 있으며, 탈것 프리뷰와 함께 직관적인 선택 경험을 제공합니다.</p>
-        <div class="work-tags"><span class="work-tag">Mount</span><span class="work-tag">Collection UI</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 04</span>
+        <h3 class="winfo-title">장비 강화</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">장비 강화 시스템 UI입니다. 강화 성공 확률, 재료 아이템, 강화 결과를 직관적으로 표시하며 강화 연출 애니메이션과 연동하여 몰입감 있는 경험을 제공합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Enhancement</span><span class="winfo-tag">System UI</span><span class="winfo-tag">Unreal Engine</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 08" data-title="화신">
-        <div class="work-visual-ratio"><img src="Resource/MirM/08%ED%99%94%EC%8B%A0.png" alt="화신"></div>
-        <span class="work-badge">MirM · 08</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 05" data-title="장비 감정">
+        <div class="wimg-ratio"><img src="Resource/MirM/05%EC%9E%A5%EB%B9%84_%EA%B0%90%EC%A0%95.png" alt="장비 감정"></div>
+        <span class="wimg-badge">MirM · 05</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 08</span>
-        <h3 class="work-title">화신</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">화신 시스템 UI입니다. 화신 소환, 스탯 강화, 스킬 구성을 한 화면에서 관리할 수 있도록 설계했으며, 화신 등급에 따른 시각적 차별화로 컬렉션 동기를 부여합니다.</p>
-        <div class="work-tags"><span class="work-tag">Avatar</span><span class="work-tag">System UI</span><span class="work-tag">Unreal Engine</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 09" data-title="무공">
-        <div class="work-visual-ratio"><img src="Resource/MirM/09%EB%AC%B4%EA%B3%B5.png" alt="무공"></div>
-        <span class="work-badge">MirM · 09</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 09</span>
-        <h3 class="work-title">무공</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">무공 스킬 트리 UI입니다. 스킬 해금 조건과 강화 경로를 노드 구조로 시각화하여 플레이어가 자신만의 빌드를 전략적으로 설계할 수 있도록 지원합니다.</p>
-        <div class="work-tags"><span class="work-tag">Skill Tree</span><span class="work-tag">Node Graph</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 05</span>
+        <h3 class="winfo-title">장비 감정</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">장비 감정 시스템 UI입니다. 감정을 통해 숨겨진 옵션을 발굴하는 과정을 시각적으로 표현하며, 결과 옵션을 명확하게 비교·선택할 수 있도록 설계했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Appraisal</span><span class="winfo-tag">System UI</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 10" data-title="로그인">
-        <div class="work-visual-ratio"><img src="Resource/MirM/10%EB%A1%9C%EA%B7%B8%EC%9D%B801.png" alt="로그인"></div>
-        <span class="work-badge">MirM · 10</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 06" data-title="장비 축복">
+        <div class="wimg-ratio"><img src="Resource/MirM/06%EC%9E%A5%EB%B9%84_%EC%B6%95%EB%B3%B5.png" alt="장비 축복"></div>
+        <span class="wimg-badge">MirM · 06</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 10</span>
-        <h3 class="work-title">로그인</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">MirM 로그인 화면입니다. 게임 세계관을 압축적으로 전달하는 배경과 함께, 최소한의 입력 필드로 마찰 없는 진입 경험을 제공합니다.</p>
-        <div class="work-tags"><span class="work-tag">Login</span><span class="work-tag">Title Screen</span><span class="work-tag">Figma</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 11" data-title="Guide">
-        <div class="work-visual-ratio"><img src="Resource/MirM/11Guide.png" alt="Guide"></div>
-        <span class="work-badge">MirM · 11</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 11</span>
-        <h3 class="work-title">Guide</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">신규 플레이어를 위한 튜토리얼 가이드 UI입니다. 단계별 설명과 화살표 인디케이터로 게임의 핵심 기능을 자연스럽게 익힐 수 있도록 유도합니다.</p>
-        <div class="work-tags"><span class="work-tag">Tutorial</span><span class="work-tag">Guide UI</span><span class="work-tag">UX Design</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 06</span>
+        <h3 class="winfo-title">장비 축복</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">장비 축복 시스템 UI입니다. 축복 재료와 성공 확률을 명확히 제시하며, 축복 효과 적용 후 변화된 스탯을 즉시 확인할 수 있는 비교 레이아웃으로 설계했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Blessing</span><span class="winfo-tag">System UI</span><span class="winfo-tag">Unreal Engine</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 12" data-title="Icon Set 01">
-        <div class="work-visual-ratio"><img src="Resource/MirM/12Icon_01.png" alt="Icon Set 01"></div>
-        <span class="work-badge">MirM · 12</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 07" data-title="탈것">
+        <div class="wimg-ratio"><img src="Resource/MirM/07%ED%83%88%EA%B2%83.png" alt="탈것"></div>
+        <span class="wimg-badge">MirM · 07</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 12</span>
-        <h3 class="work-title">Icon Set 01</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">MirM 게임 아이콘 세트입니다. 스킬, 아이템, 버프 등 다양한 게임 요소를 일관된 스타일로 표현하여 시각적 통일감과 즉각적인 인식률을 높였습니다.</p>
-        <div class="work-tags"><span class="work-tag">Icon Design</span><span class="work-tag">Asset</span><span class="work-tag">Illustrator</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 07</span>
+        <h3 class="winfo-title">탈것</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">탈것 시스템 UI입니다. 보유한 탈것 목록, 스탯 정보, 스킨 변경 기능을 통합하여 관리할 수 있으며, 탈것 프리뷰와 함께 직관적인 선택 경험을 제공합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Mount</span><span class="winfo-tag">Collection UI</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="MirM · 13" data-title="Icon Set 02">
-        <div class="work-visual-ratio"><img src="Resource/MirM/13Icon_02.png" alt="Icon Set 02"></div>
-        <span class="work-badge">MirM · 13</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 08" data-title="화신">
+        <div class="wimg-ratio"><img src="Resource/MirM/08%ED%99%94%EC%8B%A0.png" alt="화신"></div>
+        <span class="wimg-badge">MirM · 08</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM — 13</span>
-        <h3 class="work-title">Icon Set 02</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">추가 아이콘 세트입니다. 소비 아이템, 재화, 특수 효과 아이콘을 포함하며, 색상 코드와 형태로 카테고리를 직관적으로 구분할 수 있도록 제작했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Icon Design</span><span class="work-tag">Asset</span><span class="work-tag">Illustrator</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 08</span>
+        <h3 class="winfo-title">화신</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">화신 시스템 UI입니다. 화신 소환, 스탯 강화, 스킬 구성을 한 화면에서 관리할 수 있으며, 화신 등급에 따른 시각적 차별화로 컬렉션 동기를 부여합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Avatar</span><span class="winfo-tag">System UI</span><span class="winfo-tag">Unreal Engine</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 09" data-title="무공">
+        <div class="wimg-ratio"><img src="Resource/MirM/09%EB%AC%B4%EA%B3%B5.png" alt="무공"></div>
+        <span class="wimg-badge">MirM · 09</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 09</span>
+        <h3 class="winfo-title">무공</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">무공 스킬 트리 UI입니다. 스킬 해금 조건과 강화 경로를 노드 구조로 시각화하여 플레이어가 자신만의 빌드를 전략적으로 설계할 수 있도록 지원합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Skill Tree</span><span class="winfo-tag">Node Graph</span><span class="winfo-tag">Figma</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 10" data-title="로그인">
+        <div class="wimg-ratio"><img src="Resource/MirM/10%EB%A1%9C%EA%B7%B8%EC%9D%B801.png" alt="로그인"></div>
+        <span class="wimg-badge">MirM · 10</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 10</span>
+        <h3 class="winfo-title">로그인</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">MirM 로그인 화면입니다. 게임 세계관을 압축적으로 전달하는 배경과 함께, 최소한의 입력 필드로 마찰 없는 진입 경험을 제공합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Login</span><span class="winfo-tag">Title Screen</span><span class="winfo-tag">Figma</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 11" data-title="Guide">
+        <div class="wimg-ratio"><img src="Resource/MirM/11Guide.png" alt="Guide"></div>
+        <span class="wimg-badge">MirM · 11</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 11</span>
+        <h3 class="winfo-title">Guide</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">신규 플레이어를 위한 튜토리얼 가이드 UI입니다. 단계별 설명과 화살표 인디케이터로 게임의 핵심 기능을 자연스럽게 익힐 수 있도록 유도합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Tutorial</span><span class="winfo-tag">Guide UI</span><span class="winfo-tag">UX Design</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 12" data-title="Icon Set 01">
+        <div class="wimg-ratio"><img src="Resource/MirM/12Icon_01.png" alt="Icon Set 01"></div>
+        <span class="wimg-badge">MirM · 12</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 12</span>
+        <h3 class="winfo-title">Icon Set 01</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">MirM 게임 아이콘 세트입니다. 스킬, 아이템, 버프 등 다양한 게임 요소를 일관된 스타일로 표현하여 시각적 통일감과 즉각적인 인식률을 높였습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Icon Design</span><span class="winfo-tag">Asset</span><span class="winfo-tag">Illustrator</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="MirM · 13" data-title="Icon Set 02">
+        <div class="wimg-ratio"><img src="Resource/MirM/13Icon_02.png" alt="Icon Set 02"></div>
+        <span class="wimg-badge">MirM · 13</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM — 13</span>
+        <h3 class="winfo-title">Icon Set 02</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">추가 아이콘 세트입니다. 소비 아이템, 재화, 특수 효과 아이콘을 포함하며 색상 코드와 형태로 카테고리를 직관적으로 구분할 수 있도록 제작했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Icon Design</span><span class="winfo-tag">Asset</span><span class="winfo-tag">Illustrator</span></div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ════════ CAT 1 — MirM China ════════ -->
-<div class="cat-sep"><div class="cat-sep-inner"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line r"></div></div></div>
-<section class="cat-section" id="cat-2">
-  <div class="cat-header">
+<!-- ══════════════════════════════════════
+     MirM China
+══════════════════════════════════════ -->
+<div class="sep"><div class="sep-inner"><div class="sep-line"></div><div class="sep-dia"></div><div class="sep-line r"></div></div></div>
+<section class="cat" id="cat-2">
+  <div class="cat-head">
     <div class="cat-num">03</div>
-    <div class="cat-info">
+    <div>
       <div class="cat-tag">Project 03</div>
       <h2 class="cat-title">MirM China</h2>
       <p class="cat-desc">중국 시장을 타겟으로 한 MirM China 프로젝트의 UI 작업물입니다. 현지화된 UX와 중국 유저 성향에 맞춘 인터페이스 설계를 담았습니다.</p>
     </div>
   </div>
-  <div class="works-container">
+  <div class="works">
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 01" data-title="HUD Level Up">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/01HUDLevelUp.png" alt="HUD LevelUp"></div>
-        <span class="work-badge">China · 01</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="China · 01" data-title="HUD Level Up">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/01HUDLevelUp.png" alt="HUD LevelUp"></div>
+        <span class="wimg-badge">China · 01</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 01</span>
-        <h3 class="work-title">HUD Level Up</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">레벨업 시 표시되는 HUD 연출 UI입니다. 화면 전환 없이 인게임에서 즉각적으로 레벨업 효과와 새로운 스탯 정보를 전달하여 플레이 흐름을 유지합니다.</p>
-        <div class="work-tags"><span class="work-tag">HUD</span><span class="work-tag">Level Up</span><span class="work-tag">Motion</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 01</span>
+        <h3 class="winfo-title">HUD Level Up</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">레벨업 시 표시되는 HUD 연출 UI입니다. 화면 전환 없이 인게임에서 즉각적으로 레벨업 효과와 새로운 스탯 정보를 전달하여 플레이 흐름을 유지합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">HUD</span><span class="winfo-tag">Level Up</span><span class="winfo-tag">Motion</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 02" data-title="HUD Menu">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/02HUDMenu.png" alt="HUD Menu"></div>
-        <span class="work-badge">China · 02</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="China · 02" data-title="HUD Menu">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/02HUDMenu.png" alt="HUD Menu"></div>
+        <span class="wimg-badge">China · 02</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 02</span>
-        <h3 class="work-title">HUD Menu</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">인게임 메인 메뉴 HUD입니다. 자주 사용하는 기능을 빠르게 접근할 수 있도록 구성하였으며, 중국 유저의 플레이 패턴을 반영한 메뉴 배치를 적용했습니다.</p>
-        <div class="work-tags"><span class="work-tag">HUD</span><span class="work-tag">Menu</span><span class="work-tag">UX Design</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 03" data-title="Event Quest">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/03Event_Quest.png" alt="Event Quest"></div>
-        <span class="work-badge">China · 03</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 03</span>
-        <h3 class="work-title">Event Quest</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">이벤트 퀘스트 UI입니다. 기간 한정 이벤트의 진행 현황과 보상을 한눈에 파악할 수 있도록 설계하였으며, 참여 동기를 높이는 시각적 연출을 적용했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Event</span><span class="work-tag">Quest UI</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 02</span>
+        <h3 class="winfo-title">HUD Menu</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">인게임 메인 메뉴 HUD입니다. 자주 사용하는 기능을 빠르게 접근할 수 있도록 구성하였으며, 중국 유저의 플레이 패턴을 반영한 메뉴 배치를 적용했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">HUD</span><span class="winfo-tag">Menu</span><span class="winfo-tag">UX Design</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 04" data-title="Pass">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/04Pass_01.png" alt="Pass"></div>
-        <span class="work-badge">China · 04</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="China · 03" data-title="Event Quest">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/03Event_Quest.png" alt="Event Quest"></div>
+        <span class="wimg-badge">China · 03</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 04</span>
-        <h3 class="work-title">Pass</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">시즌 패스 UI입니다. 무료/유료 트랙의 보상 현황을 명확하게 비교할 수 있도록 레이아웃을 구성하였으며, 잔여 기간과 달성률을 직관적으로 표시합니다.</p>
-        <div class="work-tags"><span class="work-tag">Season Pass</span><span class="work-tag">Monetization</span><span class="work-tag">UI Design</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 05" data-title="Dungeon">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/05Dungeon.png" alt="Dungeon"></div>
-        <span class="work-badge">China · 05</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 05</span>
-        <h3 class="work-title">Dungeon</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">던전 입장 및 진행 UI입니다. 던전 난이도, 입장 조건, 예상 보상을 한눈에 파악하고 파티 구성까지 이어지는 플로우를 끊김 없이 설계했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Dungeon</span><span class="work-tag">Content UI</span><span class="work-tag">Unreal Engine</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 03</span>
+        <h3 class="winfo-title">Event Quest</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">이벤트 퀘스트 UI입니다. 기간 한정 이벤트의 진행 현황과 보상을 한눈에 파악할 수 있도록 설계하였으며, 참여 동기를 높이는 시각적 연출을 적용했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Event</span><span class="winfo-tag">Quest UI</span><span class="winfo-tag">Figma</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 06" data-title="Offline Popup">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/06offline_Popup.png" alt="Offline Popup"></div>
-        <span class="work-badge">China · 06</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="China · 04" data-title="Pass">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/04Pass_01.png" alt="Pass"></div>
+        <span class="wimg-badge">China · 04</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 06</span>
-        <h3 class="work-title">Offline Popup</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">오프라인 보상 수령 팝업입니다. 접속하지 않은 동안 획득한 재화와 경험치를 명확하게 표시하여 재접속 동기를 부여하고 플레이어의 만족감을 높입니다.</p>
-        <div class="work-tags"><span class="work-tag">Popup</span><span class="work-tag">Reward UI</span><span class="work-tag">Figma</span></div>
-      </div>
-    </div>
-
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 07" data-title="NPC Shop Buy">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/07NPCShop_Buy.png" alt="NPC Shop Buy"></div>
-        <span class="work-badge">China · 07</span><span class="zoom-hint">확대해서 보기</span>
-      </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 07</span>
-        <h3 class="work-title">NPC Shop Buy</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">NPC 상점 구매 UI입니다. 아이템 정보, 가격, 보유 재화를 한 화면에서 확인하고 수량 선택부터 결제까지 최소한의 단계로 완료할 수 있도록 플로우를 설계했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Shop UI</span><span class="work-tag">NPC</span><span class="work-tag">UX Flow</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 04</span>
+        <h3 class="winfo-title">Pass</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">시즌 패스 UI입니다. 무료/유료 트랙의 보상 현황을 명확하게 비교할 수 있도록 레이아웃을 구성하였으며, 잔여 기간과 달성률을 직관적으로 표시합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Season Pass</span><span class="winfo-tag">Monetization</span><span class="winfo-tag">UI Design</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 08" data-title="Grade">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/08Grade.png" alt="Grade"></div>
-        <span class="work-badge">China · 08</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="China · 05" data-title="Dungeon">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/05Dungeon.png" alt="Dungeon"></div>
+        <span class="wimg-badge">China · 05</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 08</span>
-        <h3 class="work-title">Grade</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">등급 시스템 UI입니다. 현재 등급과 다음 등급까지의 진행률을 시각적으로 표현하며, 등급별 혜택을 명확하게 안내하여 플레이어의 성장 동기를 강화합니다.</p>
-        <div class="work-tags"><span class="work-tag">Grade System</span><span class="work-tag">Progress UI</span><span class="work-tag">Figma</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 05</span>
+        <h3 class="winfo-title">Dungeon</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">던전 입장 및 진행 UI입니다. 던전 난이도, 입장 조건, 예상 보상을 한눈에 파악하고 파티 구성까지 이어지는 플로우를 끊김 없이 설계했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Dungeon</span><span class="winfo-tag">Content UI</span><span class="winfo-tag">Unreal Engine</span></div>
       </div>
     </div>
 
-    <div class="work-item">
-      <div class="work-visual" data-badge="China · 09" data-title="Event Popup">
-        <div class="work-visual-ratio"><img src="Resource/MirM_China/09EventPopup.png" alt="Event Popup"></div>
-        <span class="work-badge">China · 09</span><span class="zoom-hint">확대해서 보기</span>
+    <div class="work">
+      <div class="wimg" data-badge="China · 06" data-title="Offline Popup">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/06offline_Popup.png" alt="Offline Popup"></div>
+        <span class="wimg-badge">China · 06</span><span class="wimg-zoom">확대해서 보기</span>
       </div>
-      <div class="work-info">
-        <span class="work-index">MirM China — 09</span>
-        <h3 class="work-title">Event Popup</h3>
-        <div class="work-divider"></div>
-        <p class="work-desc">이벤트 알림 팝업 UI입니다. 신규 이벤트, 업데이트 소식을 임팩트 있게 전달하며, 빠른 확인과 닫기가 가능한 구조로 플레이 흐름을 방해하지 않도록 설계했습니다.</p>
-        <div class="work-tags"><span class="work-tag">Event</span><span class="work-tag">Popup</span><span class="work-tag">UI Design</span></div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 06</span>
+        <h3 class="winfo-title">Offline Popup</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">오프라인 보상 수령 팝업입니다. 접속하지 않은 동안 획득한 재화와 경험치를 명확하게 표시하여 재접속 동기를 부여하고 플레이어의 만족감을 높입니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Popup</span><span class="winfo-tag">Reward UI</span><span class="winfo-tag">Figma</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="China · 07" data-title="NPC Shop Buy">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/07NPCShop_Buy.png" alt="NPC Shop Buy"></div>
+        <span class="wimg-badge">China · 07</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 07</span>
+        <h3 class="winfo-title">NPC Shop Buy</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">NPC 상점 구매 UI입니다. 아이템 정보, 가격, 보유 재화를 한 화면에서 확인하고 수량 선택부터 결제까지 최소한의 단계로 완료할 수 있도록 플로우를 설계했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Shop UI</span><span class="winfo-tag">NPC</span><span class="winfo-tag">UX Flow</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="China · 08" data-title="Grade">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/08Grade.png" alt="Grade"></div>
+        <span class="wimg-badge">China · 08</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 08</span>
+        <h3 class="winfo-title">Grade</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">등급 시스템 UI입니다. 현재 등급과 다음 등급까지의 진행률을 시각적으로 표현하며, 등급별 혜택을 명확하게 안내하여 플레이어의 성장 동기를 강화합니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Grade System</span><span class="winfo-tag">Progress UI</span><span class="winfo-tag">Figma</span></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="wimg" data-badge="China · 09" data-title="Event Popup">
+        <div class="wimg-ratio"><img src="Resource/MirM_China/09EventPopup.png" alt="Event Popup"></div>
+        <span class="wimg-badge">China · 09</span><span class="wimg-zoom">확대해서 보기</span>
+      </div>
+      <div class="winfo">
+        <span class="winfo-idx">MirM China — 09</span>
+        <h3 class="winfo-title">Event Popup</h3>
+        <div class="winfo-line"></div>
+        <p class="winfo-desc">이벤트 알림 팝업 UI입니다. 신규 이벤트, 업데이트 소식을 임팩트 있게 전달하며, 빠른 확인과 닫기가 가능한 구조로 플레이 흐름을 방해하지 않도록 설계했습니다.</p>
+        <div class="winfo-tags"><span class="winfo-tag">Event</span><span class="winfo-tag">Popup</span><span class="winfo-tag">UI Design</span></div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ════════ CAT 2 — Post Project ════════ -->
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-ornament"></div>
-  <h2 class="about-heading">안녕하세요</h2>
-  <p class="about-text">
-    게임 UI/UX 디자이너로서 플레이어의 경험을 최우선으로 생각합니다.<br>
-    인터페이스는 보이지 않아야 할 때 보이지 않고,<br>
-    필요할 때 정확히 그 자리에 있어야 한다고 믿습니다.
-  </p>
-  <a class="contact-btn" href="/cdn-cgi/l/email-protection#6c1503191e2c09010d0500420f0301">
-    <span>✦</span><span>연락하기</span><span>✦</span>
-  </a>
+  <div class="about-orn"></div>
+  <h2 class="about-h">안녕하세요</h2>
+  <p class="about-p">게임 UI/UX 디자이너로서 플레이어의 경험을 최우선으로 생각합니다.<br>인터페이스는 보이지 않아야 할 때 보이지 않고,<br>필요할 때 정확히 그 자리에 있어야 한다고 믿습니다.</p>
+  <a class="about-btn" href="mailto:your@email.com"><span>✦</span><span>연락하기</span><span>✦</span></a>
 </section>
 
-<footer>
-  <p>© 2025 Game UI Portfolio &nbsp;·&nbsp; Crafted with Precision</p>
-</footer>
+<footer>© 2025 Game UI Portfolio &nbsp;·&nbsp; Crafted with Precision</footer>
 
 <!-- LIGHTBOX -->
-<div id="lightbox">
-  <div id="lb-backdrop"></div>
-  <div id="lb-frame">
+<div id="lb">
+  <div id="lb-bg"></div>
+  <div id="lb-box">
     <button id="lb-close">✕</button>
-    <div id="lb-img-wrap"></div>
-    <div id="lb-caption">
-      <div id="lb-cap-left">
-        <span id="lb-cap-index"></span>
-        <span id="lb-cap-title"></span>
+    <div id="lb-img"></div>
+    <div id="lb-cap">
+      <div id="lb-cap-l">
+        <span id="lb-badge"></span>
+        <span id="lb-title"></span>
       </div>
-      <div id="lb-cap-right">
-        <span id="lb-img-size"></span>
-        <span id="lb-counter"></span>
-        <button class="lb-arrow" id="lb-prev">&#8592;</button>
-        <button class="lb-arrow" id="lb-next">&#8594;</button>
+      <div id="lb-cap-r">
+        <span id="lb-size"></span>
+        <span id="lb-count"></span>
+        <button class="lb-btn" id="lb-prev">←</button>
+        <button class="lb-btn" id="lb-next">→</button>
       </div>
     </div>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── Nav ──
+<script>
+// ── NAV 스크롤 ──
 var nav = document.getElementById('nav');
-var sections = document.querySelectorAll('.cat-section');
-var dots = document.querySelectorAll('.cat-dot');
-var navLinks = document.querySelectorAll('.nav-links a');
+var cats = document.querySelectorAll('.cat');
+var navLinks = document.querySelectorAll('.nav-center a[data-cat]');
+var dnItems = document.querySelectorAll('.dn-item');
 
-window.addEventListener('scroll', function() {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-  updateDots();
-}, { passive: true });
+window.addEventListener('scroll', onScroll, {passive:true});
 
-function updateDots() {
-  var mid = window.scrollY + window.innerHeight * 0.45;
-  var current = -1;
-  sections.forEach(function(s, i) {
-    if (s.getBoundingClientRect().top + window.scrollY <= mid) current = i;
+function onScroll() {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  var mid = window.scrollY + window.innerHeight * .45;
+  var cur = -1;
+  cats.forEach(function(s, i) {
+    if (s.offsetTop <= mid) cur = i;
   });
-  dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
-  navLinks.forEach(function(a, i) { a.classList.toggle('active-link', i === current); });
+  navLinks.forEach(function(a, i) { a.classList.toggle('active', i === cur); });
+  dnItems.forEach(function(d, i)  { d.classList.toggle('on',     i === cur); });
 }
 
-dots.forEach(function(d) {
-  d.addEventListener('click', function() {
-    var el = document.getElementById(d.dataset.target);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
+// ── 클릭 스크롤 ──
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   a.addEventListener('click', function(e) {
-    var id = a.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+dnItems.forEach(function(d) {
+  d.addEventListener('click', function() {
+    var el = document.getElementById(d.dataset.go);
+    if (el) el.scrollIntoView({behavior:'smooth'});
   });
 });
 
-// ── Scroll reveal ──
-var workItems = document.querySelectorAll('.work-item');
+onScroll();
 
-function revealVisible() {
-  workItems.forEach(function(el) {
-    var rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.92) {
-      el.classList.add('revealed');
-    }
-  });
+// ── LIGHTBOX ──
+var lb       = document.getElementById('lb');
+var lbBg     = document.getElementById('lb-bg');
+var lbImg    = document.getElementById('lb-img');
+var lbClose  = document.getElementById('lb-close');
+var lbPrev   = document.getElementById('lb-prev');
+var lbNext   = document.getElementById('lb-next');
+var lbBadge  = document.getElementById('lb-badge');
+var lbTitle  = document.getElementById('lb-title');
+var lbSize   = document.getElementById('lb-size');
+var lbCount  = document.getElementById('lb-count');
+
+var allImgs = Array.from(document.querySelectorAll('.wimg'));
+var cur = 0;
+
+function showLb(i) {
+  cur = ((i % allImgs.length) + allImgs.length) % allImgs.length;
+  var el  = allImgs[cur];
+  var src = el.querySelector('img').src;
+
+  lbImg.innerHTML = '';
+  lbSize.textContent = '';
+  lbBadge.textContent = el.dataset.badge || '';
+  lbTitle.textContent = el.dataset.title || '';
+  lbCount.textContent = (cur + 1) + ' / ' + allImgs.length;
+
+  var img = new Image();
+  img.onload = function() {
+    lbSize.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px';
+  };
+  img.src = src;
+  img.style.cssText = 'display:block;max-width:88vw;max-height:74vh;object-fit:contain;';
+  img.addEventListener('click', closeLb);
+  lbImg.appendChild(img);
+  lbImg.scrollTop = 0; lbImg.scrollLeft = 0;
 }
 
-// 페이지 로드 즉시 실행
-revealVisible();
+function openLb(i) { showLb(i); lb.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb()  { lb.classList.remove('open'); document.body.style.overflow=''; }
 
-// IntersectionObserver 백업
-if ('IntersectionObserver' in window) {
-  var revealObs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('revealed');
-      }
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
-  workItems.forEach(function(el) { revealObs.observe(el); });
-}
-
-window.addEventListener('scroll', revealVisible, { passive: true });
-
-updateDots();
-
-// ── Lightbox ──
-var lb         = document.getElementById('lightbox');
-var lbBackdrop = document.getElementById('lb-backdrop');
-var lbWrap     = document.getElementById('lb-img-wrap');
-var lbClose    = document.getElementById('lb-close');
-var lbPrev     = document.getElementById('lb-prev');
-var lbNext     = document.getElementById('lb-next');
-var lbCapIndex = document.getElementById('lb-cap-index');
-var lbCapTitle = document.getElementById('lb-cap-title');
-var lbCounter  = document.getElementById('lb-counter');
-var lbImgSize  = document.getElementById('lb-img-size');
-
-var allVisuals = Array.from(document.querySelectorAll('.work-visual'));
-var lbCurrent  = 0;
-var total      = allVisuals.length;
-
-function renderLb(index) {
-  lbCurrent = ((index % total) + total) % total;
-  var visual = allVisuals[lbCurrent];
-  var badge  = visual.dataset.badge || '';
-  var title  = visual.dataset.title || '';
-  var srcImg = visual.querySelector('img');
-
-  lbWrap.innerHTML = '';
-  lbWrap.classList.remove('small-img');
-  lbImgSize.textContent = '';
-
-  if (srcImg) {
-    var img = document.createElement('img');
-    img.src = srcImg.src;
-    img.alt = title;
-    img.onload = function() {
-      var maxW = window.innerWidth  * 0.92;
-      var maxH = window.innerHeight * 0.78;
-      if (img.naturalWidth <= maxW && img.naturalHeight <= maxH) {
-        lbWrap.classList.add('small-img');
-      }
-      lbImgSize.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px';
-    };
-    img.addEventListener('click', function(e) { e.stopPropagation(); closeLb(); });
-    lbWrap.appendChild(img);
-  } else {
-    lbWrap.classList.add('small-img');
-    var ph = document.createElement('div');
-    ph.className = 'lb-ph';
-    ph.innerHTML = '<span class="ph-icon">🖼</span><span class="ph-label">이미지 준비 중</span>';
-    lbWrap.appendChild(ph);
-  }
-
-  lbCapIndex.textContent = badge;
-  lbCapTitle.textContent = title;
-  lbCounter.textContent  = (lbCurrent + 1) + ' / ' + total;
-  lbWrap.scrollTop = 0;
-  lbWrap.scrollLeft = 0;
-}
-
-function openLb(index) {
-  renderLb(index);
-  lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLb() {
-  lb.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-allVisuals.forEach(function(v, i) { v.addEventListener('click', function() { openLb(i); }); });
+allImgs.forEach(function(el, i) { el.addEventListener('click', function() { openLb(i); }); });
 lbClose.addEventListener('click', closeLb);
-lbBackdrop.addEventListener('click', closeLb);
-lbPrev.addEventListener('click', function(e) { e.stopPropagation(); renderLb(lbCurrent - 1); });
-lbNext.addEventListener('click', function(e) { e.stopPropagation(); renderLb(lbCurrent + 1); });
+lbBg.addEventListener('click', closeLb);
+lbPrev.addEventListener('click', function(e) { e.stopPropagation(); showLb(cur - 1); });
+lbNext.addEventListener('click', function(e) { e.stopPropagation(); showLb(cur + 1); });
 
 document.addEventListener('keydown', function(e) {
   if (!lb.classList.contains('open')) return;
-  if (e.key === 'Escape')      closeLb();
-  if (e.key === 'ArrowLeft')   renderLb(lbCurrent - 1);
-  if (e.key === 'ArrowRight')  renderLb(lbCurrent + 1);
+  if (e.key === 'Escape')     closeLb();
+  if (e.key === 'ArrowLeft')  showLb(cur - 1);
+  if (e.key === 'ArrowRight') showLb(cur + 1);
 });
 
-var lbTx = 0;
-lb.addEventListener('touchstart', function(e) { lbTx = e.touches[0].clientX; }, { passive: true });
-lb.addEventListener('touchend', function(e) {
-  var dx = e.changedTouches[0].clientX -
+var tx = 0;
+lb.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, {passive:true});
+lb.addEventListener('touchend',   function(e) {
+  var dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) dx < 0 ? showLb(cur+1) : showLb(cur-1);
+}, {passive:true});
+</script>
+</body>
+</html>
