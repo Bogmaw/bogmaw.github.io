@@ -347,21 +347,36 @@ footer {
 #lb-img-wrap {
   border: 1px solid var(--border-bright);
   background: var(--panel);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
+  overflow: auto; /* 스크롤 허용 */
+  max-width: 92vw;
+  max-height: 78vh;
   min-width: 320px; min-height: 200px;
   box-shadow: 0 0 80px rgba(0,0,0,.8), 0 0 40px rgba(201,168,76,.06);
   position: relative;
+  /* 스크롤바 스타일 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) var(--panel);
 }
-#lb-img-wrap::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(135deg, rgba(201,168,76,.04) 0%, transparent 55%);
-}
+#lb-img-wrap::-webkit-scrollbar { width: 4px; height: 4px; }
+#lb-img-wrap::-webkit-scrollbar-track { background: var(--panel); }
+#lb-img-wrap::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
 #lb-img-wrap img {
   display: block;
-  max-width: 88vw;
-  max-height: 74vh;
-  object-fit: contain;
+  /* 원본 사이즈 그대로 표시 */
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  cursor: zoom-out;
+}
+/* 이미지가 뷰포트보다 작을 경우 중앙 정렬 */
+#lb-img-wrap.small-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#lb-img-wrap.small-img img {
+  cursor: default;
 }
 #lb-img-wrap .lb-ph {
   width: 640px; max-width: 88vw;
@@ -781,7 +796,7 @@ footer {
     인터페이스는 보이지 않아야 할 때 보이지 않고,<br>
     필요할 때 정확히 그 자리에 있어야 한다고 믿습니다.
   </p>
-  <a class="contact-btn" href="mailto:your@email.com">
+  <a class="contact-btn" href="/cdn-cgi/l/email-protection#324b5d474072575f535b5e1c515d5f">
     <span>✦</span><span>연락하기</span><span>✦</span>
   </a>
 </section>
@@ -802,6 +817,7 @@ footer {
         <span id="lb-cap-title"></span>
       </div>
       <div id="lb-cap-right">
+        <span id="lb-img-size" style="font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.18em;color:var(--text-dim);"></span>
         <span id="lb-counter"></span>
         <button class="lb-arrow" id="lb-prev">&#8592;</button>
         <button class="lb-arrow" id="lb-next">&#8594;</button>
@@ -810,7 +826,7 @@ footer {
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Cursor ──
 var cur  = document.getElementById('cur');
 var ring = document.getElementById('cur-ring');
@@ -891,22 +907,49 @@ function renderLb(index) {
   var srcImg = visual.querySelector('img');
 
   lbWrap.innerHTML = '';
+  lbWrap.classList.remove('small-img');
 
   if (srcImg) {
     var img = document.createElement('img');
     img.src = srcImg.src;
     img.alt = title;
+
+    // 이미지 로드 후 크기 체크 → 작으면 중앙 정렬
+    img.onload = function() {
+      var maxW = window.innerWidth  * 0.92;
+      var maxH = window.innerHeight * 0.78;
+      if (img.naturalWidth <= maxW && img.naturalHeight <= maxH) {
+        lbWrap.classList.add('small-img');
+      } else {
+        lbWrap.classList.remove('small-img');
+      }
+      // 원본 사이즈 표시
+      var sizeEl = document.getElementById('lb-img-size');
+      if (sizeEl) sizeEl.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px';
+    };
+
+    // 클릭으로 닫기
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeLb();
+    });
+
     lbWrap.appendChild(img);
   } else {
     var ph = document.createElement('div');
     ph.className = 'lb-ph';
     ph.innerHTML = '<span class="ph-icon">🖼</span><span class="ph-label">이미지 준비 중</span>';
+    lbWrap.classList.add('small-img');
     lbWrap.appendChild(ph);
   }
 
   lbCapIndex.textContent = badge;
   lbCapTitle.textContent = title;
   lbCounter.textContent  = (lbCurrent + 1) + ' / ' + total;
+
+  // 스크롤 위치 초기화
+  lbWrap.scrollTop  = 0;
+  lbWrap.scrollLeft = 0;
 }
 
 function openLb(index) {
@@ -937,9 +980,4 @@ document.addEventListener('keydown', function(e) {
 var lbTx = 0;
 lb.addEventListener('touchstart', function(e) { lbTx = e.touches[0].clientX; }, { passive: true });
 lb.addEventListener('touchend', function(e) {
-  var dx = e.changedTouches[0].clientX - lbTx;
-  if (Math.abs(dx) > 50) { dx < 0 ? renderLb(lbCurrent + 1) : renderLb(lbCurrent - 1); }
-}, { passive: true });
-</script>
-</body>
-</html>
+  var dx = e.changedTouches[0].clientX -
