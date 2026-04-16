@@ -380,7 +380,7 @@ footer{position:relative;z-index:1;text-align:center;padding:2.5rem;border-top:1
         
       </div>
     </div>
-    <div class="g-card" data-badge="Post · 01-V" data-title="HUD — Motion" data-src="Resource/mp4/01HUD.mp4" data-type="video"><div class="g-overlay">
+    <div class="g-card" data-badge="Post · 01-V" data-title="HUD — Motion" data-src="https://player.vimeo.com/video/1183623817?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;muted=0&amp;loop=1" data-type="iframe"><div class="g-overlay">
           <div class="g-overlay-inner">
             <span class="g-badge">Post · 01-V</span>
             <h3 class="g-title">HUD — Motion</h3>
@@ -390,8 +390,8 @@ footer{position:relative;z-index:1;text-align:center;padding:2.5rem;border-top:1
             <span class="g-zoom">클릭하여 크게 보기</span>
           </div>
         </div>
-      <div class="g-img-wrap">
-        <video src="Resource/mp4/01HUD.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+      <div class="g-img-wrap" style="pointer-events: none;">
+        <div style="padding:62.5% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1183623817?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;muted=1&amp;loop=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="01HUD"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
         <span class="g-media-badge">VIDEO</span>
         
       </div>
@@ -1416,6 +1416,16 @@ function showLb(i){
     vid.style.cssText='display:block;max-width:90vw;max-height:80vh;object-fit:contain;';
     vid.addEventListener('loadedmetadata',function(){lbSize.textContent=vid.videoWidth+' × '+vid.videoHeight+' px';});
     lbWrap.appendChild(vid);
+  }else if(it.type==='iframe'){
+    var wrap=document.createElement('div');
+    wrap.style.cssText='width:80vw;height:45vw;max-width:1200px;max-height:80vh;display:flex;justify-content:center;align-items:center;';
+    var iframe=document.createElement('iframe');
+    iframe.src=it.src;
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+    iframe.style.cssText='width:100%;height:100%;border:none;border-radius:8px;';
+    wrap.appendChild(iframe);
+    lbWrap.appendChild(wrap);
   }else{
     var img=new Image();
     img.onload=function(){lbSize.textContent=img.naturalWidth+' × '+img.naturalHeight+' px';};
