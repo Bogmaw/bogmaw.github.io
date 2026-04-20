@@ -5,10 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game UI Portfolio</title>
-  <link rel="stylesheet" as="style" crossorigin=""
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Noto+Serif+KR:wght@300;400;600&amp;display=swap"
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&amp;family=Noto+Sans+KR:wght@300;400;500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
     rel="stylesheet">
   <style>
     :root {
@@ -41,7 +39,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Pretendard', 'Noto Serif KR', serif;
+      font-family: 'Noto Sans KR', sans-serif;
       overflow-x: hidden;
     }
 
@@ -88,7 +86,7 @@
     }
 
     .nav-logo {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: .25em;
@@ -107,7 +105,7 @@
     }
 
     .nav-center a {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .8rem;
       letter-spacing: .15em;
       color: var(--text-dim);
@@ -163,7 +161,7 @@
     }
 
     .dn-label {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .65rem;
       letter-spacing: .18em;
       color: var(--text-dim);
@@ -244,7 +242,7 @@
     }
 
     .hero-sub {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .85rem;
       letter-spacing: .5em;
       color: var(--text-dim);
@@ -252,10 +250,20 @@
       margin-bottom: 1rem;
     }
 
+    .hero-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: .45em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+
     .hero-h1 {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: clamp(3rem, 7vw, 6.5rem);
-      font-weight: 900;
+      font-weight: 500;
       letter-spacing: .15em;
     }
 
@@ -288,7 +296,7 @@
       flex-direction: column;
       align-items: center;
       gap: .6rem;
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .7rem;
       letter-spacing: .35em;
       color: var(--text-dim);
@@ -363,7 +371,7 @@
     }
 
     .cat-num {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 6.5rem;
       font-weight: 900;
       line-height: 0.8;
@@ -374,7 +382,7 @@
     }
 
     .cat-tag {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .7rem;
       letter-spacing: .4em;
       color: var(--gold);
@@ -383,9 +391,9 @@
     }
 
     .cat-title {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 700;
+      font-weight: 500;
       color: var(--text-bright);
       letter-spacing: .08em;
       margin-bottom: 1rem;
@@ -486,7 +494,7 @@
       top: 1rem;
       right: 1rem;
       z-index: 3;
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .6rem;
       letter-spacing: .15em;
       background: rgba(0, 0, 0, 0.6);
@@ -525,7 +533,7 @@
     }
 
     .g-badge {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .7rem;
       letter-spacing: .3em;
       color: var(--gold);
@@ -534,7 +542,7 @@
     }
 
     .g-title {
-      font-family: 'Pretendard', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
       font-size: 1.6rem;
       font-weight: 600;
       color: var(--text-bright);
@@ -552,7 +560,7 @@
     }
 
     .g-desc {
-      font-family: 'Pretendard', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
       font-size: 1.05rem;
       line-height: 1.7;
       color: var(--text);
@@ -568,7 +576,7 @@
     }
 
     .g-tag {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .65rem;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -581,7 +589,7 @@
     }
 
     .g-zoom {
-      font-family: 'Pretendard', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
       font-size: .75rem;
       letter-spacing: .1em;
       color: rgba(201, 168, 76, .8);
@@ -620,7 +628,7 @@
     }
 
     .about-h {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 700;
       color: var(--text-bright);
@@ -646,7 +654,7 @@
       border-radius: 30px;
       color: var(--gold-light);
       text-decoration: none;
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .9rem;
       letter-spacing: .25em;
       text-transform: uppercase;
@@ -659,13 +667,45 @@
       box-shadow: 0 0 20px rgba(201, 168, 76, .2);
     }
 
+    .about-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .6rem;
+      margin-top: .5rem;
+    }
+
+    .about-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      letter-spacing: .12em;
+      margin: 0 0 .4rem;
+    }
+
+    .about-info {
+      font-family: 'Poppins', sans-serif;
+      font-size: .95rem;
+      font-weight: 400;
+      color: var(--text-dim);
+      letter-spacing: .08em;
+      margin: 0;
+    }
+
+    .about-label {
+      font-weight: 600;
+      color: var(--gold);
+      margin-right: .4rem;
+    }
+
     footer {
       position: relative;
       z-index: 1;
       text-align: center;
       padding: 2.5rem;
       border-top: 1px solid var(--border);
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .75rem;
       letter-spacing: .2em;
       color: var(--text-dim);
@@ -782,14 +822,14 @@
     }
 
     #lb-badge {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: .8rem;
       letter-spacing: .4em;
       color: var(--gold);
     }
 
     #lb-title {
-      font-family: 'Pretendard', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
       font-size: 1.8rem;
       font-weight: 700;
       color: var(--text-bright);
@@ -804,7 +844,7 @@
     }
 
     #lb-count {
-      font-family: 'Josefin Sans', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 1rem;
       letter-spacing: .3em;
       color: var(--gold);
@@ -941,6 +981,63 @@
       animation: fadein 1.2s 1.5s both;
     }
 
+    /* ── OTHER PROJECT GALLERY GRID ── */
+    .gallery-grid {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 3rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .g-card-mini {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+      background: var(--panel);
+      aspect-ratio: 16/10;
+    }
+    .g-card-mini img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.85);
+      transition: transform .6s cubic-bezier(.2,.8,.2,1), filter .4s;
+    }
+    .g-card-mini:hover img {
+      transform: scale(1.05);
+      filter: brightness(1);
+    }
+    .g-card-mini .g-mini-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(12,10,8,.85) 100%);
+      opacity: 0;
+      transition: opacity .35s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem 1.4rem;
+    }
+    .g-card-mini:hover .g-mini-overlay { opacity: 1; }
+    .g-mini-info { width: 100%; }
+    .g-mini-badge {
+      font-family: 'Poppins', sans-serif;
+      font-size: .6rem;
+      letter-spacing: .25em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .25rem;
+    }
+    .g-mini-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      color: var(--text-bright);
+      line-height: 1.2;
+    }
+
     /* ── RESPONSIVE ── */
     @media(max-width:900px) {
 
@@ -956,6 +1053,13 @@
       .gallery {
         padding: 1.5rem 1.5rem 4rem;
         gap: 2rem;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1.5rem 1rem 4rem;
+      }
+      @media(max-width:500px) {
+        .gallery-grid { grid-template-columns: 1fr; }
       }
 
       .g-overlay-inner {
@@ -1015,37 +1119,11 @@
     <div class="ptc" style="left:25%;top:65%;--d:12s;--dl:2s;--dx:-22px;--dy:-120px"></div>
     <div class="ptc" style="left:74%;top:40%;--d:10s;--dl:1s;--dx:18px;--dy:-95px"></div>
     <div class="ptc" style="left:83%;top:70%;--d:8s;--dl:3s;--dx:-20px;--dy:-100px"></div>
-    <div class="hero-emblem">
-      <svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle class="er1" cx="65" cy="65" r="61" stroke="rgba(201,168,76,.28)" stroke-width="1"
-          stroke-dasharray="5 4"></circle>
-        <circle class="er2" cx="65" cy="65" r="48" stroke="rgba(201,168,76,.45)" stroke-width="1"
-          stroke-dasharray="3 7"></circle>
-        <circle cx="65" cy="65" r="37" stroke="rgba(201,168,76,.28)" stroke-width="1"></circle>
-        <g class="ec">
-          <polygon points="65,24 94,65 65,106 36,65" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,.05)">
-          </polygon>
-          <polygon points="65,36 84,65 65,94 46,65" stroke="rgba(201,168,76,.38)" stroke-width=".8" fill="none">
-          </polygon>
-          <circle cx="65" cy="65" r="5" fill="#C9A84C" opacity=".85"></circle>
-          <circle cx="65" cy="65" r="9" stroke="rgba(201,168,76,.38)" stroke-width="1" fill="none"></circle>
-          <circle cx="65" cy="24" r="2.5" fill="#C9A84C" opacity=".55"></circle>
-          <circle cx="94" cy="65" r="2.5" fill="#C9A84C" opacity=".55"></circle>
-          <circle cx="65" cy="106" r="2.5" fill="#C9A84C" opacity=".55"></circle>
-          <circle cx="36" cy="65" r="2.5" fill="#C9A84C" opacity=".55"></circle>
-        </g>
-        <g stroke="rgba(201,168,76,.5)" stroke-width="1.5">
-          <line x1="65" y1="3" x2="65" y2="12"></line>
-          <line x1="65" y1="118" x2="65" y2="127"></line>
-          <line x1="3" y1="65" x2="12" y2="65"></line>
-          <line x1="118" y1="65" x2="127" y2="65"></line>
-        </g>
-      </svg>
-    </div>
     <p class="hero-sub">Game UI / UX Designer</p>
-    <h1 class="hero-h1"><span>Portfolio</span></h1>
+    <p class="hero-name">SHIM BO YOUNG</p>
+    <h1 class="hero-h1"><span>PORTFOLIO</span></h1>
     <div class="hero-line"></div>
-    <p class="hero-desc">인터페이스를 통해 세계관을 완성합니다</p>
+    <p class="hero-desc">본 포트폴리오 웹사이트는 AI를 활용하여 제작되었습니다.</p>
     <div class="scroll-cue">Scroll</div>
   </section>
 
@@ -1853,409 +1931,104 @@
         <p class="cat-desc">수렵기원, Nexter, OMG, 천랑, 달을삼킨늑대 등 다양한 프로젝트의 UI 작업물입니다. 장르와 플랫폼을 넘나들며 쌓아온 디자인 경험을 담았습니다.</p>
       </div>
     </div>
-    <div class="gallery">
-      <div class="g-card" data-badge="Other · 01" data-title="수렵기원 HUD"
-        data-src="Resource/OtherProject/01%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_HUD.jpg" data-idx="32">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 01</span>
-            <h3 class="g-title">수렵기원 HUD</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">수렵기원 프로젝트의 메인 전투 HUD입니다. 체력, 스태미나, 쿨타임 등 전투 핵심 정보를 직관적으로 배치하여 플레이 몰입도를 높였습니다.</p>
-            <div class="g-tags"><span class="g-tag">HUD</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/01%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_HUD.jpg" alt="수렵기원 HUD" loading="lazy">
-
-        </div>
+    <div class="gallery-grid">
+      <div class="g-card-mini" data-badge="Other · 01" data-title="수렵기원 HUD" data-src="Resource/OtherProject/01%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_HUD.jpg">
+        <img src="Resource/OtherProject/01%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_HUD.jpg" alt="수렵기원 HUD" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 01</span><span class="g-mini-title">수렵기원 HUD</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 02" data-title="수렵기원 인벤토리 (2017)"
-        data-src="Resource/OtherProject/02_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9D%B8%EB%B2%A4%ED%86%A0%EB%A6%AC.jpg"
-        data-idx="33">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 02</span>
-            <h3 class="g-title">수렵기원 인벤토리 (2017)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">수렵기원의 인벤토리 시스템 UI입니다. 획득한 소재와 장비를 카테고리별로 정리하여 빠른 아이템 관리와 제작 연동이 가능하도록 설계했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Inventory</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img
-            src="Resource/OtherProject/02_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9D%B8%EB%B2%A4%ED%86%A0%EB%A6%AC.jpg"
-            alt="수렵기원 인벤토리" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 02" data-title="수렵기원 인벤토리 (2017)" data-src="Resource/OtherProject/02_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9D%B8%EB%B2%A4%ED%86%A0%EB%A6%AC.jpg">
+        <img src="Resource/OtherProject/02_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9D%B8%EB%B2%A4%ED%86%A0%EB%A6%AC.jpg" alt="수렵기원 인벤토리 (2017)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 02</span><span class="g-mini-title">수렵기원 인벤토리 (2017)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 03" data-title="수렵기원 장비강화 (2017)"
-        data-src="Resource/OtherProject/03_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9E%A5%EB%B9%84%EA%B0%95%ED%99%94.jpg"
-        data-idx="34">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 03</span>
-            <h3 class="g-title">수렵기원 장비강화 (2017)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">수렵기원의 장비 강화 시스템 UI입니다. 재료 소모와 강화 결과를 명확하게 시각화하여 플레이어의 판단을 돕고 강화 과정의 긴장감을 연출했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Enhancement</span><span class="g-tag">System UI</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img
-            src="Resource/OtherProject/03_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9E%A5%EB%B9%84%EA%B0%95%ED%99%94.jpg"
-            alt="수렵기원 장비강화" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 03" data-title="수렵기원 장비강화 (2017)" data-src="Resource/OtherProject/03_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9E%A5%EB%B9%84%EA%B0%95%ED%99%94.jpg">
+        <img src="Resource/OtherProject/03_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9E%A5%EB%B9%84%EA%B0%95%ED%99%94.jpg" alt="수렵기원 장비강화 (2017)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 03</span><span class="g-mini-title">수렵기원 장비강화 (2017)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 04" data-title="Nexter 메인화면 (2016)"
-        data-src="Resource/OtherProject/04_2016_Nexter_%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.png" data-idx="35">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 04</span>
-            <h3 class="g-title">Nexter 메인화면 (2016)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">Nexter 프로젝트의 메인 화면 UI입니다. 게임 진입점으로서 핵심 콘텐츠와 소식을 효과적으로 전달하며 플레이어의 첫인상을 결정짓는 인터페이스입니다.</p>
-            <div class="g-tags"><span class="g-tag">Main Screen</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/04_2016_Nexter_%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.png" alt="Nexter 메인화면"
-            loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 04" data-title="Nexter 메인화면 (2016)" data-src="Resource/OtherProject/04_2016_Nexter_%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.png">
+        <img src="Resource/OtherProject/04_2016_Nexter_%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.png" alt="Nexter 메인화면 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 04</span><span class="g-mini-title">Nexter 메인화면 (2016)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 05" data-title="Nexter 로비 (2016)"
-        data-src="Resource/OtherProject/05_2016_Nexter_%EB%A1%9C%EB%B9%84.jpg" data-idx="36">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 05</span>
-            <h3 class="g-title">Nexter 로비 (2016)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">Nexter의 게임 로비 UI입니다. 매치 시작 전 파티 구성, 캐릭터 선택, 아이템 준비 등 게임 준비 과정을 한 화면에서 완료할 수 있도록 구성했습니다.
-            </p>
-            <div class="g-tags"><span class="g-tag">Lobby</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/05_2016_Nexter_%EB%A1%9C%EB%B9%84.jpg" alt="Nexter 로비" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 05" data-title="Nexter 로비 (2016)" data-src="Resource/OtherProject/05_2016_Nexter_%EB%A1%9C%EB%B9%84.jpg">
+        <img src="Resource/OtherProject/05_2016_Nexter_%EB%A1%9C%EB%B9%84.jpg" alt="Nexter 로비 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 05</span><span class="g-mini-title">Nexter 로비 (2016)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 06" data-title="Nexter 인게임 (2016)"
-        data-src="Resource/OtherProject/06_2016_Nexter_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" data-idx="37">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 06</span>
-            <h3 class="g-title">Nexter 인게임 (2016)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">Nexter의 인게임 HUD 및 UI입니다. 실시간 전투 중 필요한 정보를 최적의 위치에 배치하여 시야 방해를 최소화하면서 빠른 판단을 지원합니다.</p>
-            <div class="g-tags"><span class="g-tag">In-Game UI</span><span class="g-tag">HUD</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/06_2016_Nexter_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="Nexter 인게임"
-            loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 06" data-title="Nexter 인게임 (2016)" data-src="Resource/OtherProject/06_2016_Nexter_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg">
+        <img src="Resource/OtherProject/06_2016_Nexter_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="Nexter 인게임 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 06</span><span class="g-mini-title">Nexter 인게임 (2016)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 07" data-title="Nexter 퀘스트 (2016)"
-        data-src="Resource/OtherProject/07_2016_Nexter_%ED%80%98%EC%8A%A4%ED%8A%B8.jpg" data-idx="38">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 07</span>
-            <h3 class="g-title">Nexter 퀘스트 (2016)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">Nexter의 퀘스트 시스템 UI입니다. 진행 중인 퀘스트와 목표를 명확히 표시하며, 완료 조건과 보상 정보를 직관적으로 안내합니다.</p>
-            <div class="g-tags"><span class="g-tag">Quest</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/07_2016_Nexter_%ED%80%98%EC%8A%A4%ED%8A%B8.jpg" alt="Nexter 퀘스트"
-            loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 07" data-title="Nexter 퀘스트 (2016)" data-src="Resource/OtherProject/07_2016_Nexter_%ED%80%98%EC%8A%A4%ED%8A%B8.jpg">
+        <img src="Resource/OtherProject/07_2016_Nexter_%ED%80%98%EC%8A%A4%ED%8A%B8.jpg" alt="Nexter 퀘스트 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 07</span><span class="g-mini-title">Nexter 퀘스트 (2016)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 08" data-title="Nexter 상자창고 (2016)"
-        data-src="Resource/OtherProject/08_2016_Nexter_%EC%83%81%EC%9E%90%EC%B0%BD%EA%B3%A0.jpg" data-idx="39">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 08</span>
-            <h3 class="g-title">Nexter 상자창고 (2016)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">Nexter의 상자 및 창고 관리 UI입니다. 보유 아이템과 상자를 체계적으로 관리할 수 있도록 그리드 레이아웃과 필터 기능을 적용했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Storage</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/08_2016_Nexter_%EC%83%81%EC%9E%90%EC%B0%BD%EA%B3%A0.jpg" alt="Nexter 상자창고"
-            loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 08" data-title="Nexter 상자창고 (2016)" data-src="Resource/OtherProject/08_2016_Nexter_%EC%83%81%EC%9E%90%EC%B0%BD%EA%B3%A0.jpg">
+        <img src="Resource/OtherProject/08_2016_Nexter_%EC%83%81%EC%9E%90%EC%B0%BD%EA%B3%A0.jpg" alt="Nexter 상자창고 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 08</span><span class="g-mini-title">Nexter 상자창고 (2016)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 09" data-title="OMG 인게임 (2014)"
-        data-src="Resource/OtherProject/09_2014_OMG_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" data-idx="40">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 09</span>
-            <h3 class="g-title">OMG 인게임 (2014)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">OMG 프로젝트의 인게임 UI입니다. 전투 중 핵심 정보를 간결하게 전달하며 직관적인 조작을 돕는 인터페이스 레이아웃을 구성했습니다.</p>
-            <div class="g-tags"><span class="g-tag">In-Game UI</span><span class="g-tag">HUD</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/09_2014_OMG_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="OMG 인게임" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 09" data-title="OMG 인게임 (2014)" data-src="Resource/OtherProject/09_2014_OMG_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg">
+        <img src="Resource/OtherProject/09_2014_OMG_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="OMG 인게임 (2014)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 09</span><span class="g-mini-title">OMG 인게임 (2014)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 10" data-title="천랑 아이콘 (2012)"
-        data-src="Resource/OtherProject/10_2012_%EC%B2%9C%EB%9E%91%EC%95%84%EC%9D%B4%EC%BD%98.jpg" data-idx="41">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 10</span>
-            <h3 class="g-title">천랑 아이콘 (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">천랑 프로젝트의 게임 아이콘 세트입니다. 스킬, 아이템, 버프 등 다양한 게임 요소를 일관된 스타일로 표현하여 즉각적인 인식률을 높였습니다.</p>
-            <div class="g-tags"><span class="g-tag">Icon Design</span><span class="g-tag">Asset</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/10_2012_%EC%B2%9C%EB%9E%91%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="천랑 아이콘"
-            loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 10" data-title="OMG 스테이지정보 (2014)" data-src="Resource/OtherProject/10_2014_OMG_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%80%EC%A0%95%EB%B3%B4.jpg">
+        <img src="Resource/OtherProject/10_2014_OMG_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%80%EC%A0%95%EB%B3%B4.jpg" alt="OMG 스테이지정보 (2014)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 10</span><span class="g-mini-title">OMG 스테이지정보 (2014)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 11" data-title="OMG 스테이지정보 (2014)"
-        data-src="Resource/OtherProject/10_2014_OMG_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%80%EC%A0%95%EB%B3%B4.jpg"
-        data-idx="42">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 11</span>
-            <h3 class="g-title">OMG 스테이지정보 (2014)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">OMG의 스테이지 정보 화면입니다. 스테이지 난이도, 클리어 조건, 보상 등을 한눈에 파악하고 입장 여부를 결정할 수 있도록 구성했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Stage Info</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/10_2014_OMG_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%80%EC%A0%95%EB%B3%B4.jpg"
-            alt="OMG 스테이지정보" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 11" data-title="OMG 캐릭터 성장 (2012)" data-src="Resource/OtherProject/11_2012_OMG_%EC%BA%90%EB%A6%AD%ED%84%B0%20%EC%84%B1%EC%9E%A5.jpg">
+        <img src="Resource/OtherProject/11_2012_OMG_%EC%BA%90%EB%A6%AD%ED%84%B0%20%EC%84%B1%EC%9E%A5.jpg" alt="OMG 캐릭터 성장 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 11</span><span class="g-mini-title">OMG 캐릭터 성장 (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 12" data-title="OMG 캐릭터 성장 (2012)"
-        data-src="Resource/OtherProject/11_2012_OMG_%EC%BA%90%EB%A6%AD%ED%84%B0%20%EC%84%B1%EC%9E%A5.jpg" data-idx="43">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 12</span>
-            <h3 class="g-title">OMG 캐릭터 성장 (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">OMG의 캐릭터 성장 시스템 UI입니다. 스탯 투자와 스킬 강화를 한 화면에서 관리하며 성장 방향을 직관적으로 시각화합니다.</p>
-            <div class="g-tags"><span class="g-tag">Character Growth</span><span class="g-tag">System UI</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/11_2012_OMG_%EC%BA%90%EB%A6%AD%ED%84%B0%20%EC%84%B1%EC%9E%A5.jpg"
-            alt="OMG 캐릭터 성장" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 12" data-title="천랑 인게임 (2012)" data-src="Resource/OtherProject/12_2012_%EC%B2%9C%EB%9E%91%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg">
+        <img src="Resource/OtherProject/12_2012_%EC%B2%9C%EB%9E%91%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="천랑 인게임 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 12</span><span class="g-mini-title">천랑 인게임 (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 13" data-title="천랑 인게임 (2012)"
-        data-src="Resource/OtherProject/12_2012_%EC%B2%9C%EB%9E%91%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" data-idx="44">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 13</span>
-            <h3 class="g-title">천랑 인게임 (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">천랑 프로젝트의 인게임 UI입니다. 전투 정보와 스킬 배치를 최적화하여 빠른 전투 대응이 가능하도록 설계했습니다.</p>
-            <div class="g-tags"><span class="g-tag">In-Game UI</span><span class="g-tag">HUD</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/12_2012_%EC%B2%9C%EB%9E%91%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="천랑 인게임"
-            loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 13" data-title="천랑 소환수정보 (2012)" data-src="Resource/OtherProject/13_2012_%EC%B2%9C%EB%9E%91%EC%86%8C%ED%99%98%EC%88%98%EC%A0%95%EB%B3%B4.jpg">
+        <img src="Resource/OtherProject/13_2012_%EC%B2%9C%EB%9E%91%EC%86%8C%ED%99%98%EC%88%98%EC%A0%95%EB%B3%B4.jpg" alt="천랑 소환수정보 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 13</span><span class="g-mini-title">천랑 소환수정보 (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 14" data-title="천랑 소환수정보 (2012)"
-        data-src="Resource/OtherProject/13_2012_%EC%B2%9C%EB%9E%91%EC%86%8C%ED%99%98%EC%88%98%EC%A0%95%EB%B3%B4.jpg"
-        data-idx="45">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 14</span>
-            <h3 class="g-title">천랑 소환수정보 (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">천랑의 소환수 정보 UI입니다. 소환수의 스탯, 스킬, 성장 현황을 한 화면에서 확인하고 관리할 수 있도록 구성했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Pet System</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/13_2012_%EC%B2%9C%EB%9E%91%EC%86%8C%ED%99%98%EC%88%98%EC%A0%95%EB%B3%B4.jpg"
-            alt="천랑 소환수정보" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 14" data-title="천랑 아이콘 (2012)" data-src="Resource/OtherProject/10_2012_%EC%B2%9C%EB%9E%91%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/10_2012_%EC%B2%9C%EB%9E%91%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="천랑 아이콘 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 14</span><span class="g-mini-title">천랑 아이콘 (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 15" data-title="달을삼킨늑대 HUD (2012)"
-        data-src="Resource/OtherProject/14_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_HUD.jpg"
-        data-idx="46">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 15</span>
-            <h3 class="g-title">달을삼킨늑대 HUD (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">달을삼킨늑대 프로젝트의 전투 HUD입니다. 게임 특유의 세계관을 반영한 디자인으로 전투 정보를 직관적으로 전달합니다.</p>
-            <div class="g-tags"><span class="g-tag">HUD</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/14_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_HUD.jpg"
-            alt="달을삼킨늑대 HUD" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 15" data-title="달을삼킨늑대 HUD (2012)" data-src="Resource/OtherProject/14_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_HUD.jpg">
+        <img src="Resource/OtherProject/14_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_HUD.jpg" alt="달을삼킨늑대 HUD (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 15</span><span class="g-mini-title">달을삼킨늑대 HUD (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 16" data-title="달을삼킨늑대 아이템 (2012)"
-        data-src="Resource/OtherProject/15_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_%EC%95%84%EC%9D%B4%ED%85%9C.jpg"
-        data-idx="47">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 16</span>
-            <h3 class="g-title">달을삼킨늑대 아이템 (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">달을삼킨늑대의 아이템 시스템 UI입니다. 아이템 등급과 속성을 명확하게 구분하여 플레이어가 빠르게 아이템을 파악하고 활용할 수 있도록 했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Item UI</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img
-            src="Resource/OtherProject/15_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_%EC%95%84%EC%9D%B4%ED%85%9C.jpg"
-            alt="달을삼킨늑대 아이템" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 16" data-title="달을삼킨늑대 아이템 (2012)" data-src="Resource/OtherProject/15_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_%EC%95%84%EC%9D%B4%ED%85%9C.jpg">
+        <img src="Resource/OtherProject/15_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_%EC%95%84%EC%9D%B4%ED%85%9C.jpg" alt="달을삼킨늑대 아이템 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 16</span><span class="g-mini-title">달을삼킨늑대 아이템 (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 17" data-title="퍼즐이냥 인게임 피버 (2012)"
-        data-src="Resource/OtherProject/18_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%9D%B8%EA%B2%8C%EC%9E%84%20%ED%94%BC%EB%B2%84.jpg"
-        data-idx="48">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 17</span>
-            <h3 class="g-title">퍼즐이냥 인게임 피버 (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">퍼즐이냥의 인게임 피버 모드 UI입니다. 피버 타임 진입 시 시각적 연출과 함께 플레이어의 흥분감을 극대화하는 UI 효과를 구성했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Puzzle Game</span><span class="g-tag">Fever Mode</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img
-            src="Resource/OtherProject/18_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%9D%B8%EA%B2%8C%EC%9E%84%20%ED%94%BC%EB%B2%84.jpg"
-            alt="퍼즐이냥 인게임 피버" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 17" data-title="퍼즐이냥 인게임 피버 (2012)" data-src="Resource/OtherProject/18_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%9D%B8%EA%B2%8C%EC%9E%84%20%ED%94%BC%EB%B2%84%EB%AA%A8%EB%93%9C.jpg">
+        <img src="Resource/OtherProject/18_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%9D%B8%EA%B2%8C%EC%9E%84%20%ED%94%BC%EB%B2%84%EB%AA%A8%EB%93%9C.jpg" alt="퍼즐이냥 인게임 피버 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 17</span><span class="g-mini-title">퍼즐이냥 인게임 피버 (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 18" data-title="퍼즐이냥 상점 아이콘 (2012)"
-        data-src="Resource/OtherProject/19_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%83%81%EC%A0%90%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg"
-        data-idx="49">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 18</span>
-            <h3 class="g-title">퍼즐이냥 상점 아이콘 (2012)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">퍼즐이냥 상점에서 사용되는 아이콘 세트입니다. 캐주얼 게임의 분위기에 맞는 친근하고 명확한 아이콘 디자인으로 구매 결정을 돕습니다.</p>
-            <div class="g-tags"><span class="g-tag">Icon Design</span><span class="g-tag">Shop UI</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img
-            src="Resource/OtherProject/19_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%83%81%EC%A0%90%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg"
-            alt="퍼즐이냥 상점 아이콘" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 18" data-title="퍼즐이냥 상점 아이콘 (2012)" data-src="Resource/OtherProject/19_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%83%81%EC%A0%90%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/19_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%83%81%EC%A0%90%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="퍼즐이냥 상점 아이콘 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 18</span><span class="g-mini-title">퍼즐이냥 상점 아이콘 (2012)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 19" data-title="천룡기 팝업창 (2011)"
-        data-src="Resource/OtherProject/20_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%ED%8C%9D%EC%97%85%EC%B0%BD.jpg"
-        data-idx="50">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 19</span>
-            <h3 class="g-title">천룡기 팝업창 (2011)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">천룡기 프로젝트의 팝업 UI입니다. 중요 알림과 확인 요청을 명확하게 전달하며 플레이 흐름을 최소한으로 방해하는 구조로 설계했습니다.</p>
-            <div class="g-tags"><span class="g-tag">Popup</span><span class="g-tag">UI Design</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/20_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%ED%8C%9D%EC%97%85%EC%B0%BD.jpg"
-            alt="천룡기 팝업창" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 19" data-title="천룡기 팝업창 (2011)" data-src="Resource/OtherProject/20_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%ED%8C%9D%EC%97%85%EC%B0%BD.jpg">
+        <img src="Resource/OtherProject/20_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%ED%8C%9D%EC%97%85%EC%B0%BD.jpg" alt="천룡기 팝업창 (2011)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 19</span><span class="g-mini-title">천룡기 팝업창 (2011)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 20" data-title="천룡기 아이콘 (2011)"
-        data-src="Resource/OtherProject/21_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%EC%95%84%EC%9D%B4%EC%BD%98.jpg"
-        data-idx="51">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 20</span>
-            <h3 class="g-title">천룡기 아이콘 (2011)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">천룡기 프로젝트의 아이콘 세트입니다. 무협 세계관을 반영한 아이콘 디자인으로 게임의 분위기와 일관성을 유지하며 직관적인 인식률을 높였습니다.</p>
-            <div class="g-tags"><span class="g-tag">Icon Design</span><span class="g-tag">Asset</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img src="Resource/OtherProject/21_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%EC%95%84%EC%9D%B4%EC%BD%98.jpg"
-            alt="천룡기 아이콘" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 20" data-title="천룡기 아이콘 (2011)" data-src="Resource/OtherProject/21_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/21_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="천룡기 아이콘 (2011)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 20</span><span class="g-mini-title">천룡기 아이콘 (2011)</span></div></div>
       </div>
-      <div class="g-card" data-badge="Other · 21" data-title="창천 아이템 아이콘 (2010)"
-        data-src="Resource/OtherProject/22_2010_%EC%B0%BD%EC%B2%9C_%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg"
-        data-idx="52">
-        <div class="g-overlay">
-          <div class="g-overlay-inner">
-            <span class="g-badge">Other · 21</span>
-            <h3 class="g-title">창천 아이템 아이콘 (2010)</h3>
-            <div class="g-divider"></div>
-            <p class="g-desc">창천 프로젝트의 아이템 아이콘 세트입니다. 다양한 아이템 종류를 명확하게 구분할 수 있는 아이콘 디자인으로 플레이어의 빠른 판단을 지원합니다.</p>
-            <div class="g-tags"><span class="g-tag">Icon Design</span><span class="g-tag">Asset</span></div>
-            <span class="g-zoom">클릭하여 크게 보기</span>
-          </div>
-        </div>
-        <div class="g-img-wrap">
-          <img
-            src="Resource/OtherProject/22_2010_%EC%B0%BD%EC%B2%9C_%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg"
-            alt="창천 아이템 아이콘" loading="lazy">
-
-        </div>
+      <div class="g-card-mini" data-badge="Other · 21" data-title="창천 아이템 아이콘 (2010)" data-src="Resource/OtherProject/22_2010_%EC%B0%BD%EC%B2%9C_%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/22_2010_%EC%B0%BD%EC%B2%9C_%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="창천 아이템 아이콘 (2010)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 21</span><span class="g-mini-title">창천 아이템 아이콘 (2010)</span></div></div>
       </div>
     </div>
   </section>
 
   <section id="about">
     <div class="about-orn"></div>
-    <h2 class="about-h">안녕하세요</h2>
+    <h2 class="about-h">감사합니다.</h2>
     <p class="about-p">게임 UI/UX 디자이너로서 플레이어의 경험을 최우선으로 생각합니다.<br>인터페이스는 보이지 않아야 할 때 보이지 않고,<br>필요할 때 정확히 그 자리에 있어야 한다고
       믿습니다.</p>
-    <a class="about-btn" href="mailto:your@email.com"><span>✦</span><span>연락하기</span><span>✦</span></a>
+    <div class="about-contact">
+      <p class="about-name">심보영</p>
+      <p class="about-info"><span class="about-label">T</span> 010.6558.7226</p>
+      <p class="about-info"><span class="about-label">E</span> b.y.shim03@gmail.com</p>
+    </div>
   </section>
 
   <footer>© 2025 Game UI Portfolio &nbsp;·&nbsp; Crafted with Precision</footer>
@@ -2279,7 +2052,7 @@
   <script>
     /* Build ITEMS from DOM automatically */
     var ITEMS = [];
-    document.querySelectorAll('.g-card').forEach(function (card, i) {
+    document.querySelectorAll('.g-card, .g-card-mini').forEach(function (card, i) {
       card.setAttribute('data-idx', i);
       ITEMS.push({
         src: card.dataset.src,
@@ -2356,7 +2129,7 @@
     function openLb(i) { showLb(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
 
-    document.querySelectorAll('.g-card').forEach(function (card) {
+    document.querySelectorAll('.g-card, .g-card-mini').forEach(function (card) {
       card.addEventListener('click', function () { openLb(parseInt(card.dataset.idx)); });
     });
     lbClose.addEventListener('click', closeLb);
