@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Font Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Josefin+Sans:wght@700&family=Playfair+Display:wght@900&family=Cormorant+Garamond:wght@600&family=Raleway:wght@800&family=Bebas+Neue&family=Italiana&family=Poiret+One&family=Montserrat:wght@900&family=Bodoni+Moda:wght@900&family=EB+Garamond:wght@800&family=Libre+Baskerville:wght@700&family=Tenor+Sans&family=Questrial&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+<style>
+  body {
+    background: #1C1917;
+    color: #D6CFC4;
+    margin: 0;
+    padding: 3rem 2rem;
+    font-family: sans-serif;
+  }
+  h2 {
+    font-size: .75rem;
+    letter-spacing: .35em;
+    color: #C9A84C;
+    text-transform: uppercase;
+    margin: 0 0 .4rem;
+    font-weight: 400;
+  }
+  .item {
+    border-bottom: 1px solid rgba(201,168,76,.12);
+    padding: 2rem 0;
+  }
+  .preview {
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: .14em;
+    background: linear-gradient(135deg, #F0DFA0 0%, #C9A84C 50%, #9A6F20 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .note {
+    font-size: .78rem;
+    color: rgba(214,207,196,.4);
+    margin-top: .5rem;
+    letter-spacing: .1em;
+  }
+  .current { border-left: 3px solid #C9A84C; padding-left: 1.2rem; }
+</style>
+</head>
+<body>
+
+<div style="margin-bottom:3rem;">
+  <p style="color:#C9A84C;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;">— 폰트 미리보기 · 현재 텍스트: "PORTFOLIO" —</p>
+</div>
+
+<div class="item current">
+  <h2>01 · Josefin Sans (현재 적용 중)</h2>
+  <p class="preview" style="font-family:'Josefin Sans',sans-serif;">Portfolio</p>
+  <p class="note">모던하고 기하학적인 산세리프 — 깔끔하고 세련된 느낌</p>
+</div>
+
+<div class="item">
+  <h2>02 · Cinzel (이전 폰트)</h2>
+  <p class="preview" style="font-family:'Cinzel',serif;">Portfolio</p>
+  <p class="note">고전 로마자 스타일 — 고급스럽고 웅장한 느낌</p>
+</div>
+
+<div class="item">
+  <h2>03 · Playfair Display</h2>
+  <p class="preview" style="font-family:'Playfair Display',serif;">Portfolio</p>
+  <p class="note">고급 잡지 스타일 세리프 — 우아하고 럭셔리한 느낌</p>
+</div>
+
+<div class="item">
+  <h2>04 · Cormorant Garamond</h2>
+  <p class="preview" style="font-family:'Cormorant Garamond',serif;font-weight:600;">Portfolio</p>
+  <p class="note">얇고 우아한 세리프 — 아티스틱하고 감각적인 느낌</p>
+</div>
+
+<div class="item">
+  <h2>05 · Raleway</h2>
+  <p class="preview" style="font-family:'Raleway',sans-serif;font-weight:800;">Portfolio</p>
+  <p class="note">모던 산세리프 — 스타일리시하고 미니멀한 느낌</p>
+</div>
+
+<div class="item">
+  <h2>06 · Bebas Neue</h2>
+  <p class="preview" style="font-family:'Bebas Neue',sans-serif;font-weight:400;">Portfolio</p>
+  <p class="note">굵고 임팩트 있는 전체 대문자 — 강렬하고 힘있는 느낌</p>
+</div>
+
+<div class="item">
+  <h2>07 · Montserrat</h2>
+  <p class="preview" style="font-family:'Montserrat',sans-serif;font-weight:900;">Portfolio</p>
+  <p class="note">기하학적 산세리프 — 현대적이고 브랜드 느낌</p>
+</div>
+
+<div class="item">
+  <h2>08 · Bodoni Moda</h2>
+  <p class="preview" style="font-family:'Bodoni Moda',serif;font-weight:900;">Portfolio</p>
+  <p class="note">패션 하우스 스타일 — 고급스럽고 대담한 느낌</p>
+</div>
+
+<div class="item">
+  <h2>09 · Italiana</h2>
+  <p class="preview" style="font-family:'Italiana',serif;font-weight:400;">Portfolio</p>
+  <p class="note">이탈리안 패션 스타일 — 섬세하고 우아한 느낌</p>
+</div>
+
+<div class="item">
+  <h2>10 · Poiret One</h2>
+  <p class="preview" style="font-family:'Poiret One',sans-serif;font-weight:400;">Portfolio</p>
+  <p class="note">아르데코 스타일 — 예술적이고 독특한 느낌</p>
+</div>
+
+<div class="item">
+  <h2>11 · Syncopate</h2>
+  <p class="preview" style="font-family:'Syncopate',sans-serif;font-weight:700;">Portfolio</p>
+  <p class="note">미래적이고 기하학적 — SF/테크 느낌</p>
+</div>
+
+<div class="item">
+  <h2>12 · Tenor Sans</h2>
+  <p class="preview" style="font-family:'Tenor Sans',sans-serif;font-weight:400;">Portfolio</p>
+  <p class="note">가볍고 품격 있는 산세리프 — 갤러리/전시 느낌</p>
+</div>
+
+</body>
+</html>

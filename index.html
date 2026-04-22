@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game UI Portfolio</title>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&amp;family=Noto+Sans+KR:wght@300;400;500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8CC7A;
+      --gold-pale: #F0DFA0;
+      --bg: #121110;
+      /* Slightly darker */
+      --panel: rgba(28, 26, 24, 0.7);
+      --border: rgba(201, 168, 76, 0.15);
+      --border-hi: rgba(201, 168, 76, 0.4);
+      --text: #D6CFC4;
+      --text-dim: rgba(214, 207, 196, 0.6);
+      --text-bright: #F5EFEB;
+      --glass: rgba(255, 255, 255, 0.03);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(201, 168, 76, 0.06), transparent 60%);
+    }
+
+    /* ── NAV ── */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      height: 70px;
+      padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      transition: background .4s, border-bottom .4s;
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(10px);
+    }
+
+    #nav.scrolled {
+      background: rgba(18, 17, 16, .9);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .25em;
+      color: var(--gold);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-center a {
+      font-family: 'Poppins', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .15em;
+      color: var(--text-dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: .5rem;
+      display: block;
+      position: relative;
+      transition: color .3s;
+      white-space: nowrap;
+    }
+
+    .nav-center a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width .3s ease-out;
+    }
+
+    .nav-center a:hover,
+    .nav-center a.active {
+      color: var(--gold-light);
+    }
+
+    .nav-center a:hover::after,
+    .nav-center a.active::after {
+      width: 100%;
+    }
+
+    /* ── DOT NAV ── */
+    #dotnav {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 800;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: flex-end;
+    }
+
+    .dn-item {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      cursor: pointer;
+    }
+
+    .dn-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all .3s;
+    }
+
+    .dn-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 168, 76, .5);
+      flex-shrink: 0;
+      transition: all .3s;
+    }
+
+    .dn-item:hover .dn-label,
+    .dn-item.on .dn-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .dn-item.on .dn-dot {
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+      transform: scale(1.5);
+    }
+
+    .dn-item:hover .dn-dot {
+      background: rgba(201, 168, 76, .4);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(201, 168, 76, .1) 0%, transparent 70%);
+    }
+
+    .hero-emblem {
+      width: 130px;
+      height: 130px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-emblem svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .er1 {
+      animation: spin1 20s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
+    .er2 {
+      animation: spin2 25s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
+    .ec {
+      animation: afloat 4s ease-in-out infinite;
+      transform-origin: 50% 50%;
+    }
+
+    .hero-sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: .85rem;
+      letter-spacing: .5em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: .45em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 500;
+      letter-spacing: .15em;
+    }
+
+    .hero-h1 span {
+      background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold) 50%, #8A6010 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-line {
+      width: 250px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-dim);
+      letter-spacing: .15em;
+      font-weight: 300;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .6rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .35em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .scroll-cue::after {
+      content: '';
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      animation: apulse 2s ease-in-out infinite;
+    }
+
+    .ptc {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: pdrift var(--d, 9s) var(--dl, 0s) infinite;
+    }
+
+    /* ── SEPARATOR ── */
+    .sep {
+      text-align: center;
+      padding: 6rem 0 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sep-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .sep-line {
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 168, 76, .5));
+    }
+
+    .sep-line.r {
+      background: linear-gradient(90deg, rgba(201, 168, 76, .5), transparent);
+    }
+
+    .sep-dia {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    /* ── SECTION HEADER ── */
+    .cat {
+      position: relative;
+      z-index: 1;
+      padding: 3rem 0 0;
+    }
+
+    .cat-head {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 3rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 3.5rem;
+      position: relative;
+    }
+
+    .cat-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 6.5rem;
+      font-weight: 900;
+      line-height: 0.8;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(201, 168, 76, .2);
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .cat-tag {
+      font-family: 'Poppins', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+
+    .cat-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 500;
+      color: var(--text-bright);
+      letter-spacing: .08em;
+      margin-bottom: 1rem;
+    }
+
+    .cat-desc {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 600px;
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════
+   GALLERY — NEW V2 LAYOUT
+═══════════════════════════════ */
+    .gallery {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 3rem 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .g-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    @media(max-width:900px) {
+      .g-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 카드 기본 셋업 */
+    .g-card {
+      position: relative;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: none;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 4rem 0;
+      gap: 1.5rem;
+    }
+
+    .g-card:last-child {
+      border-bottom: none;
+    }
+
+    .g-grid-2 .g-card {
+      padding: 0 0 3rem 0;
+    }
+
+
+
+    /* 이미지 랩핑 (새로운 디자인에서는 완전히 분리됨) */
+    .g-img-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+      display: block;
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 12px;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+
+    .g-card:hover .g-img-wrap {
+      border-color: var(--border-hi);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(201, 168, 76, 0.15);
+    }
+
+    .g-img-wrap img,
+    .g-img-wrap video {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border-top: none;
+    }
+
+    .g-card:hover .g-img-wrap img,
+    .g-card:hover .g-img-wrap video {
+      transform: scale(1.04);
+    }
+
+    /* 미디어 뱃지 (비디오, GIF 표시) */
+    .g-media-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 3;
+      font-family: 'Poppins', sans-serif;
+      font-size: .6rem;
+      letter-spacing: .15em;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(201, 168, 76, .5);
+      padding: .3rem .7rem;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+      border-radius: 4px;
+    }
+
+    /* 상단 카드 뱃지는 이제 제거 (텍스트에 이미 있으므로 중복 방지) */
+    .g-card::before {
+      display: none !important;
+    }
+
+    /* 텍스트 오버레이 -> 투명한 글래스모피즘 박스로 변경, 이미지 "아래"에 항상 표시됨 */
+    .g-overlay {
+      position: relative !important;
+      background: transparent !important;
+      backdrop-filter: none;
+      display: flex;
+      flex-direction: column;
+      opacity: 1 !important;
+      transform: none !important;
+      width: 100%;
+      order: 0;
+    }
+
+    .g-overlay-inner {
+      padding: 0;
+      transform: none !important;
+      opacity: 1 !important;
+      width: 100%;
+    }
+
+    .g-badge {
+      font-family: 'Poppins', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .3em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .8rem;
+    }
+
+    .g-title {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      letter-spacing: 0;
+      margin-bottom: .8rem;
+      line-height: 1.3;
+    }
+
+    .g-divider {
+      width: 50px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 1.2rem;
+      border-radius: 1px;
+    }
+
+    .g-desc {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .g-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .g-tag {
+      font-family: 'Poppins', sans-serif;
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .3rem .8rem;
+      background: rgba(201, 168, 76, 0.08);
+      /* slight fill */
+      border: 1px solid rgba(201, 168, 76, .25);
+      border-radius: 4px;
+      color: var(--gold-light);
+    }
+
+    .g-zoom {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      color: rgba(201, 168, 76, .8);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .g-zoom:hover {
+      color: var(--gold-light);
+    }
+
+    .g-zoom::before {
+      content: '⊕';
+      font-size: 1.1rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 8rem 3rem 6rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .about-orn {
+      width: 160px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 3rem;
+    }
+
+    .about-h {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: .1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-p {
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin: 0 auto 3.5rem;
+    }
+
+    .about-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 3rem;
+      border: 1px solid var(--border-hi);
+      background: rgba(201, 168, 76, 0.05);
+      border-radius: 30px;
+      color: var(--gold-light);
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: .9rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      transition: all .3s;
+    }
+
+    .about-btn:hover {
+      color: var(--text-bright);
+      background: rgba(201, 168, 76, 0.15);
+      box-shadow: 0 0 20px rgba(201, 168, 76, .2);
+    }
+
+    .about-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .6rem;
+      margin-top: .5rem;
+    }
+
+    .about-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      letter-spacing: .12em;
+      margin: 0 0 .4rem;
+    }
+
+    .about-info {
+      font-family: 'Poppins', sans-serif;
+      font-size: .95rem;
+      font-weight: 400;
+      color: var(--text-dim);
+      letter-spacing: .08em;
+      margin: 0;
+    }
+
+    .about-label {
+      font-weight: 600;
+      color: var(--gold);
+      margin-right: .4rem;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Poppins', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      color: var(--text-dim);
+    }
+
+    /* ── LIGHTBOX ── */
+    #lb {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s;
+    }
+
+    #lb.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #lb-bg {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 9, 8, .98);
+      backdrop-filter: blur(15px);
+    }
+
+    #lb-box {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      transform: scale(.95);
+      transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    #lb.open #lb-box {
+      transform: scale(1);
+    }
+
+    #lb-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 100px;
+      box-sizing: border-box;
+    }
+
+    #lb-img-wrap img,
+    #lb-img-wrap video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.8));
+    }
+
+    .lb-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      width: 60px;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      color: var(--gold-light);
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all .2s;
+    }
+
+    .lb-nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    #lb-prev { left: 30px; }
+    #lb-next { right: 30px; }
+
+    #lb-cap-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px 60px;
+      background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    #lb-cap-l {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+
+    #lb-badge {
+      font-family: 'Poppins', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .4em;
+      color: var(--gold);
+    }
+
+    #lb-title {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    }
+
+    #lb-cap-r {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .5rem;
+    }
+
+    #lb-count {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .3em;
+      color: var(--gold);
+    }
+
+    #lb-close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      z-index: 20;
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      color: var(--gold-light);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .3s;
+      border-radius: 50%;
+    }
+
+    #lb-close:hover {
+      transform: rotate(90deg);
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 15px rgba(201, 168, 76, .3);
+    }
+
+    /* ── KEYFRAMES ── */
+    @keyframes spin1 {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin2 {
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+
+    @keyframes afloat {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-10px)
+      }
+    }
+
+    @keyframes apulse {
+
+      0%,
+      100% {
+        opacity: .2
+      }
+
+      50% {
+        opacity: .8
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+        transform: translateY(30px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes linein {
+      from {
+        width: 0;
+        opacity: 0
+      }
+
+      to {
+        width: 250px;
+        opacity: 1
+      }
+    }
+
+    @keyframes pdrift {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0)
+      }
+
+      20% {
+        opacity: .6
+      }
+
+      80% {
+        opacity: .2
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx, 20px), var(--dy, -90px))
+      }
+    }
+
+    .hero-emblem {
+      animation: fadein 1.5s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .hero-sub {
+      animation: fadein 1.2s .3s both;
+    }
+
+    .hero-h1 {
+      animation: fadein 1.5s .1s both;
+    }
+
+    .hero-line {
+      animation: linein 1.2s .8s both;
+    }
+
+    .hero-desc {
+      animation: fadein 1.2s .9s both;
+    }
+
+    .scroll-cue {
+      animation: fadein 1.2s 1.5s both;
+    }
+
+    /* ── OTHER PROJECT GALLERY GRID ── */
+    .gallery-grid {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 3rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .g-card-mini {
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+      background: var(--panel);
+      aspect-ratio: 16/10;
+    }
+    .g-card-mini img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.85);
+      transition: transform .6s cubic-bezier(.2,.8,.2,1), filter .4s;
+    }
+    .g-card-mini:hover img {
+      transform: scale(1.05);
+      filter: brightness(1);
+    }
+    .g-card-mini .g-mini-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(12,10,8,.85) 100%);
+      opacity: 0;
+      transition: opacity .35s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem 1.4rem;
+    }
+    .g-card-mini:hover .g-mini-overlay { opacity: 1; }
+    .g-mini-info { width: 100%; }
+    .g-mini-badge {
+      font-family: 'Poppins', sans-serif;
+      font-size: .6rem;
+      letter-spacing: .25em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .25rem;
+    }
+    .g-mini-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      color: var(--text-bright);
+      line-height: 1.2;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px) {
+
+      .nav-center,
+      #dotnav {
+        display: none;
+      }
+
+      #nav {
+        padding: 0 1.5rem;
+      }
+
+      .gallery {
+        padding: 1.5rem 1.5rem 4rem;
+        gap: 2rem;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1.5rem 1rem 4rem;
+      }
+      @media(max-width:500px) {
+        .gallery-grid { grid-template-columns: 1fr; }
+      }
+
+      .g-overlay-inner {
+        padding: 0.5rem 0;
+      }
+
+      .g-title {
+        font-size: 1.3rem;
+      }
+
+      .g-desc {
+        font-size: 0.95rem;
+      }
+
+      .cat-head {
+        padding: 0 1.5rem 3rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+
+      .cat-num {
+        font-size: 4rem;
+      }
+
+      #about {
+        padding: 6rem 1.5rem 4rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav id="nav">
+    <a class="nav-logo" href="#hero"></a>
+    <ul class="nav-center">
+      <li><a href="#cat-0" data-cat="0">Post Project</a></li>
+      <li><a href="#cat-1" data-cat="1">MirM</a></li>
+      <li><a href="#cat-2" data-cat="2">MirM China</a></li>
+      <li><a href="#cat-3" data-cat="3">Other Project</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <div id="dotnav">
+    <div class="dn-item on" data-go="cat-0"><span class="dn-label">Post Project</span><span class="dn-dot"></span></div>
+    <div class="dn-item" data-go="cat-1"><span class="dn-label">MirM</span><span class="dn-dot"></span></div>
+    <div class="dn-item" data-go="cat-2"><span class="dn-label">MirM China</span><span class="dn-dot"></span></div>
+    <div class="dn-item" data-go="cat-3"><span class="dn-label">Other Project</span><span class="dn-dot"></span></div>
+  </div>
+
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="ptc" style="left:14%;top:30%;--d:9s;--dl:0s;--dx:28px;--dy:-110px"></div>
+    <div class="ptc" style="left:25%;top:65%;--d:12s;--dl:2s;--dx:-22px;--dy:-120px"></div>
+    <div class="ptc" style="left:74%;top:40%;--d:10s;--dl:1s;--dx:18px;--dy:-95px"></div>
+    <div class="ptc" style="left:83%;top:70%;--d:8s;--dl:3s;--dx:-20px;--dy:-100px"></div>
+    <p class="hero-sub">Game UI / UX Designer</p>
+    <p class="hero-name">SHIM BO YOUNG</p>
+    <h1 class="hero-h1"><span>PORTFOLIO</span></h1>
+    <div class="hero-line"></div>
+    <p class="hero-desc">본 포트폴리오 웹사이트는 AI를 활용하여 제작되었습니다.</p>
+    <div class="scroll-cue">Scroll</div>
+  </section>
+
+
+  <div class="sep">
+    <div class="sep-inner">
+      <div class="sep-line"></div>
+      <div class="sep-dia"></div>
+      <div class="sep-line r"></div>
+    </div>
+  </div>
+  <section class="cat" id="cat-0">
+    <div class="cat-head">
+      <div class="cat-num">01</div>
+      <div>
+        <div class="cat-tag">PROJECT 01</div>
+        <h2 class="cat-title">Post Project</h2>
+        <p class="cat-desc">포스트 프로젝트의 UI 작업물입니다. HUD, 인벤토리, 퀘스트 시스템, 캐릭터 커스터마이징까지 게임 전반의 인터페이스 설계와 위젯을 구성 하였습니다.</p>
+      </div>
+    </div>
+    <div class="gallery">
+      <!-- ─── HUD ─── -->
+      <div class="g-card" data-badge="Post · 01" data-title="HUD" data-src="Resource/Post_Project/01HUD.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 01</span>
+            <h3 class="g-title">HUD</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">체력, 마나, 쿨타임 게이지를 포함한 메인 전투 HUD입니다. 화면 하단 코너 배치로 시야 간섭을 최소화하면서도 빠른 정보 파악이 가능하도록 설계했습니다.</p>
+            <div class="g-tags"><span class="g-tag">HUD</span><span class="g-tag">UI Design</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/01HUD.png" alt="HUD" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 01-V" data-title="HUD — Motion" data-src="Resource/mp4/01HUD.mp4"
+        data-type="video">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 01-V</span>
+            <h3 class="g-title">HUD — Motion</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">언리얼의 머트리얼과 애니메션 툴을 사용 하여 HUD의 실제 동작을 구현한 영상입니다. 체력, 마나 게이지의 실시간 변화와 스킬 쿨타임 애니메이션 등 인게임 UI의 반응성을 확인할 수 있습니다.</p>
+            <div class="g-tags"><span class="g-tag">HUD</span><span class="g-tag">Motion</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <video src="Resource/mp4/01HUD.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+          <span class="g-media-badge">VIDEO</span>
+
+        </div>
+      </div>
+
+      <!-- ─── 2열 분할 영상 ─── -->
+      <div class="g-grid-2">
+        <div class="g-card" data-badge="Post · V02" data-title="Quest — Motion" data-src="Resource/mp4/02Quest.mp4"
+          data-type="video">
+          <div class="g-overlay">
+            <div class="g-overlay-inner">
+              <span class="g-badge">Post · V02</span>
+              <h3 class="g-title">Quest — Motion</h3>
+              <div class="g-divider"></div>
+              <p class="g-desc">퀘스트 시스템의 동작 영상입니다. 퀘스트 수락, 진행 상태 업데이트, 완료 연출까지 전체 플로우의 UI 인터랙션을 보여줍니다.</p>
+              <div class="g-tags"><span class="g-tag">Quest</span><span class="g-tag">Motion</span></div>
+              <span class="g-zoom">클릭하여 크게 보기</span>
+            </div>
+          </div>
+          <div class="g-img-wrap">
+            <video src="Resource/mp4/02Quest.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+            <span class="g-media-badge">VIDEO</span>
+
+          </div>
+        </div>
+        <div class="g-card" data-badge="Post · V03" data-title="Quest List — Motion"
+          data-src="Resource/mp4/03QuestList.mp4" data-type="video">
+          <div class="g-overlay">
+            <div class="g-overlay-inner">
+              <span class="g-badge">Post · V03</span>
+              <h3 class="g-title">Quest List — Motion</h3>
+              <div class="g-divider"></div>
+              <p class="g-desc">퀘스트 목표설정 동작 영상입니다. 카테고리 전환, 스크롤, 퀘스트 선택 시의 UI 전환 애니메이션을 확인할 수 있습니다.</p>
+              <div class="g-tags"><span class="g-tag">Quest List</span><span class="g-tag">Motion</span></div>
+              <span class="g-zoom">클릭하여 크게 보기</span>
+            </div>
+          </div>
+          <div class="g-img-wrap">
+            <video src="Resource/mp4/03QuestList.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+            <span class="g-media-badge">VIDEO</span>
+
+          </div>
+        </div>
+        <div class="g-card" data-badge="Post · V04" data-title="아이템 획득 — Motion" data-src="Resource/mp4/04GetItem.mp4"
+          data-type="video">
+          <div class="g-overlay">
+            <div class="g-overlay-inner">
+              <span class="g-badge">Post · V04</span>
+              <h3 class="g-title">아이템 획득 — Motion</h3>
+              <div class="g-divider"></div>
+              <p class="g-desc">아이템 획득 시 연출 영상입니다. 드롭 아이템 표시, 획득 알림, 인벤토리 추가 애니메이션 등 보상 경험의 피드백을 담았습니다.</p>
+              <div class="g-tags"><span class="g-tag">Item</span><span class="g-tag">Motion</span></div>
+              <span class="g-zoom">클릭하여 크게 보기</span>
+            </div>
+          </div>
+          <div class="g-img-wrap">
+            <video src="Resource/mp4/04GetItem.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+            <span class="g-media-badge">VIDEO</span>
+
+          </div>
+        </div>
+        <div class="g-card" data-badge="Post · V05" data-title="Skill — Motion" data-src="Resource/mp4/05Skill.mp4"
+          data-type="video">
+          <div class="g-overlay">
+            <div class="g-overlay-inner">
+              <span class="g-badge">Post · V05</span>
+              <h3 class="g-title">Skill — Motion</h3>
+              <div class="g-divider"></div>
+              <p class="g-desc">스킬 시스템의 동작 영상입니다. 스킬 슬롯 배치, 스킬 발동, 쿨타임 표시, 스킬 사용 시 UI 반응 등을 구현 하였습니다.</p>
+              <div class="g-tags"><span class="g-tag">Skill</span><span class="g-tag">Motion</span></div>
+              <span class="g-zoom">클릭하여 크게 보기</span>
+            </div>
+          </div>
+          <div class="g-img-wrap">
+            <video src="Resource/mp4/05Skill.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+            <span class="g-media-badge">VIDEO</span>
+
+          </div>
+        </div>
+        <div class="g-card" data-badge="Post · V06" data-title="HP 게이지 — Motion" data-src="Resource/mp4/06HP.mp4"
+          data-type="video">
+          <div class="g-overlay">
+            <div class="g-overlay-inner">
+              <span class="g-badge">Post · V06</span>
+              <h3 class="g-title">HP 게이지 — Motion</h3>
+              <div class="g-divider"></div>
+              <p class="g-desc">HP 게이지의 동작 영상입니다. 데미지 수치 표시, 체력 감소/회복 애니메이션, 위험 구간 경고 연출 등 전투 피드백 UI를 확인할 수 있습니다.</p>
+              <div class="g-tags"><span class="g-tag">HP</span><span class="g-tag">Motion</span><span
+                  class="g-tag">Photoshop</span></div>
+              <span class="g-zoom">클릭하여 크게 보기</span>
+            </div>
+          </div>
+          <div class="g-img-wrap">
+            <video src="Resource/mp4/06HP.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+            <span class="g-media-badge">VIDEO</span>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 인벤토리 ─── -->
+      <div class="g-card" data-badge="Post · Mockup" data-title="UX Mockup — AI HTML 목업"
+        data-src="Resource/GIF/HTLM.gif">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · Mockup</span>
+            <h3 class="g-title">UX Mockup — AI HTML 목업</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">AI를 활용하여 HTML로 제작한 디자인 작업 전 UX 기반 목업 단계입니다. 레이아웃 구조와 인터랙션 흐름을 빠르게 검증하고 디자인 방향성을 사전에 확인합니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">UX Mockup</span><span class="g-tag">AI</span><span
+                class="g-tag">HTML Prototype</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/GIF/HTLM.gif" alt="UX Mockup — AI HTML 목업" loading="lazy">
+          <span class="g-media-badge">GIF · MOCKUP</span>
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 02" data-title="Equipment"
+        data-src="Resource/Post_Project/02Equipment_W.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 02</span>
+            <h3 class="g-title">Equipment</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">장비 착용 화면 입니다. AI로 검증된 내용을 바탕으로 시안을 제작 하였습니다.</p>
+            <div class="g-tags"><span class="g-tag">Equipment</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/02Equipment_W.png" alt="Equipment" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 03" data-title="Inventory"
+        data-src="Resource/Post_Project/03Inven_White.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 03</span>
+            <h3 class="g-title">Inventory</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">인벤토리 화면입니다. AI로 검증된 내용을 바탕으로 시안을 제작 하였습니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">Inventory</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/03Inven_White.png" alt="Inventory" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 03-V" data-title="Inventory — Motion" data-src="Resource/mp4/07Inven.mp4"
+        data-type="video">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 03-V</span>
+            <h3 class="g-title">Inventory — Motion</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">인벤토리 시스템의 동작 영상입니다. 아이템 드래그, 정렬, 장비 착용 등 인벤토리 인터랙션의 실제 동작과 애니메이션을 보여줍니다. 상위 등급의 컬러는 머트리얼을 사용 하여 특별해 보이게 제작 하였습니다.</p>
+            <div class="g-tags"><span class="g-tag">Inventory</span><span class="g-tag">Motion</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <video src="Resource/mp4/07Inven.mp4" autoplay="" muted="" loop="" playsinline=""></video>
+          <span class="g-media-badge">VIDEO</span>
+
+        </div>
+      </div>
+
+      <!-- ─── 퀘스트 / 위젯 / 커스터마이징 ─── -->
+      <div class="g-card" data-badge="Post · 05" data-title="Quest Main Page"
+        data-src="Resource/Post_Project/05Quest_Main_Page.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 05</span>
+            <h3 class="g-title">Quest Main Page</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">퀘스트를 관리 하는 메인 화면입니다. 진행 중인 퀘스트 목록, 완료 조건, 보상 정보를 한눈에 파악할 수 있도록 구성하였으며 카테고리별 탭 구분으로 탐색을 편리하게 했습니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">Quest</span><span class="g-tag">UI Design</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/05Quest_Main_Page.png" alt="Quest Main Page" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 06" data-title="Name Slot" data-src="Resource/Post_Project/06NameSlot.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 06</span>
+            <h3 class="g-title">Name Slot</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">캐릭터 이름 표시를 위한 네임슬롯 위젯입니다. 캐릭터 유형에 따른 색상 코드로 아군/적군/NPC를 즉시 구분할 수 있으며 상황에 따라 동적으로 표시됩니다.</p>
+            <div class="g-tags"><span class="g-tag">Widget</span><span class="g-tag">UMG</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/06NameSlot.png" alt="Name Slot" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 07" data-title="위젯 구성"
+        data-src="Resource/Post_Project/07%EC%9C%84%EC%A0%AF%20%EA%B5%AC%EC%84%B1.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 07</span>
+            <h3 class="g-title">위젯 구성</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">퀘스트 UI를 구성하는 위젯 계층 구조입니다. 재사용 가능한 컴포넌트 단위로 설계하여 유지보수성을 높였으며 각 위젯 간 데이터 바인딩 구조를 체계적으로
+              정리했습니다.</p>
+            <div class="g-tags"><span class="g-tag">Widget</span><span class="g-tag">UMG</span><span
+                class="g-tag">Component Design</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/07%EC%9C%84%EC%A0%AF%20%EA%B5%AC%EC%84%B1.png" alt="위젯 구성" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 08" data-title="컨텐츠 BP 구성"
+        data-src="Resource/Post_Project/08%EC%BB%A8%ED%85%90%EC%B8%A0%20BP%EA%B5%AC%EC%84%B1.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 08</span>
+            <h3 class="g-title">컨텐츠 BP 구성</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">퀘스트 시스템의 블루프린트 구성도입니다. 퀘스트 트리거, 조건 체크, 보상 지급까지의 전체 흐름을 블루프린트로 구현하였으며 UI와 게임 로직 간의 연동 구조를
+              담았습니다.</p>
+            <div class="g-tags"><span class="g-tag">Blueprint</span><span class="g-tag">Game Logic</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/08%EC%BB%A8%ED%85%90%EC%B8%A0%20BP%EA%B5%AC%EC%84%B1.png" alt="컨텐츠 BP 구성"
+            loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 09" data-title="캐릭터 커스터마이징"
+        data-src="Resource/Post_Project/09%EC%BB%A4%EB%A7%88.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 09</span>
+            <h3 class="g-title">캐릭터 커스터마이징</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">캐릭터 외형을 자유롭게 조정하는 커스터마이징 메인 화면입니다. 헤어, 얼굴형, 체형, 의상 등 다양한 옵션을 카테고리별로 정리하여 실시간 3D 프리뷰와 함께
+              즉각적인 피드백을 제공합니다.</p>
+            <div class="g-tags"><span class="g-tag">Character UI</span><span class="g-tag">Customization</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/09%EC%BB%A4%EB%A7%88.png" alt="캐릭터 커스터마이징" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="Post · 10" data-title="커스터마이징 디테일"
+        data-src="Resource/Post_Project/10%EC%BB%A4%EB%A7%88%20Detail.png">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">Post · 10</span>
+            <h3 class="g-title">커스터마이징 디테일</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">세부 슬라이더와 컬러 피커를 활용한 정밀 조정 화면입니다. 피부톤, 눈 색상 등 미세한 옵션까지 조절 가능하며 프리셋 저장 기능으로 여러 스타일을 손쉽게 관리할
+              수 있습니다.</p>
+            <div class="g-tags"><span class="g-tag">Detail UI</span><span class="g-tag">Color Picker</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/Post_Project/10%EC%BB%A4%EB%A7%88%20Detail.png" alt="커스터마이징 디테일" loading="lazy">
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="sep">
+    <div class="sep-inner">
+      <div class="sep-line"></div>
+      <div class="sep-dia"></div>
+      <div class="sep-line r"></div>
+    </div>
+  </div>
+  <section class="cat" id="cat-1">
+    <div class="cat-head">
+      <div class="cat-num">02</div>
+      <div>
+        <div class="cat-tag">PROJECT 02</div>
+        <h2 class="cat-title">MirM</h2>
+        <p class="cat-desc">MirM 프로젝트의 UI 디자인 작업물입니다. HUD, 인벤토리, 장비 시스템, 아이콘 등 게임 전반의 인터페이스를 설계하고 구현했습니다.</p>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="g-card" data-badge="MirM · 01" data-title="HUD" data-src="Resource/MirM/01MirM_HUD.png" data-idx="10">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 01</span>
+            <h3 class="g-title">HUD</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">MirM의 메인 전투 HUD입니다. 체력, 마나, 스킬 쿨타임 등 핵심 전투 정보를 직관적으로 배치하여 전투 중에도 빠른 상황 판단이 가능하도록 설계했습니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">HUD</span><span class="g-tag">UI Design</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/01MirM_HUD.png" alt="HUD" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 02" data-title="Inventory" data-src="Resource/MirM/02MirM_Inventory.png"
+        data-idx="11">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 02</span>
+            <h3 class="g-title">Inventory</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">그리드 기반 인벤토리 시스템입니다. 아이템 등급별 색상 구분, 수량 표시, 퀵슬롯 연동 기능을 포함하며 드래그 앤 드롭으로 직관적인 아이템 관리가 가능합니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">Inventory</span><span class="g-tag">UI Design</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/02MirM_Inventory.png" alt="Inventory" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 03" data-title="아이템 정보 팝업"
+        data-src="Resource/MirM/03%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%A0%95%EB%B3%B4%20%ED%8C%9D%EC%97%85.png"
+        data-idx="12">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 03</span>
+            <h3 class="g-title">아이템 정보 팝업</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">아이템 선택 시 표시되는 상세 정보 팝업입니다. 스탯, 등급, 강화 수치, 장착 조건 등 필요한 정보를 명확하게 전달하며 현재 장착 아이템과의 비교 기능을
+              제공합니다.</p>
+            <div class="g-tags"><span class="g-tag">Popup</span><span class="g-tag">Tooltip</span><span class="g-tag">UI
+                Design</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/03%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%A0%95%EB%B3%B4%20%ED%8C%9D%EC%97%85.png"
+            alt="아이템 정보 팝업" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 04" data-title="장비 강화"
+        data-src="Resource/MirM/04%EC%9E%A5%EB%B9%84_%EA%B0%95%ED%99%94.png" data-idx="13">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 04</span>
+            <h3 class="g-title">장비 강화</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">장비 강화 시스템 UI입니다. 강화 성공 확률, 재료 아이템, 강화 결과를 직관적으로 표시하며 강화 연출 애니메이션과 연동하여 몰입감 있는 경험을 제공합니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">Enhancement</span><span class="g-tag">System UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/04%EC%9E%A5%EB%B9%84_%EA%B0%95%ED%99%94.png" alt="장비 강화" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 05" data-title="장비 감정"
+        data-src="Resource/MirM/05%EC%9E%A5%EB%B9%84_%EA%B0%90%EC%A0%95.png" data-idx="14">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 05</span>
+            <h3 class="g-title">장비 감정</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">장비 감정 시스템 UI입니다. 감정을 통해 숨겨진 옵션을 발굴하는 과정을 시각적으로 표현하며, 결과 옵션을 명확하게 비교·선택할 수 있도록 설계했습니다.</p>
+            <div class="g-tags"><span class="g-tag">Appraisal</span><span class="g-tag">System UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/05%EC%9E%A5%EB%B9%84_%EA%B0%90%EC%A0%95.png" alt="장비 감정" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 06" data-title="장비 축복"
+        data-src="Resource/MirM/06%EC%9E%A5%EB%B9%84_%EC%B6%95%EB%B3%B5.png" data-idx="15">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 06</span>
+            <h3 class="g-title">장비 축복</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">장비 축복 시스템 UI입니다. 축복 재료와 성공 확률을 명확히 제시하며, 축복 효과 적용 후 변화된 스탯을 즉시 확인할 수 있는 비교 레이아웃으로 설계했습니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">Blessing</span><span class="g-tag">System UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/06%EC%9E%A5%EB%B9%84_%EC%B6%95%EB%B3%B5.png" alt="장비 축복" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 07" data-title="탈것" data-src="Resource/MirM/07%ED%83%88%EA%B2%83.png"
+        data-idx="16">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 07</span>
+            <h3 class="g-title">탈것</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">탈것 시스템 UI입니다. 보유한 탈것 목록, 스탯 정보, 스킨 변경 기능을 통합하여 관리할 수 있으며, 탈것 프리뷰와 함께 직관적인 선택 경험을 제공합니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">Mount</span><span class="g-tag">Collection UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/07%ED%83%88%EA%B2%83.png" alt="탈것" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 08" data-title="화신" data-src="Resource/MirM/08%ED%99%94%EC%8B%A0.png"
+        data-idx="17">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 08</span>
+            <h3 class="g-title">화신</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">화신 시스템 UI입니다. 화신 소환, 스탯 강화, 스킬 구성을 한 화면에서 관리할 수 있으며, 화신 등급에 따른 시각적 차별화로 컬렉션 동기를 부여합니다.</p>
+            <div class="g-tags"><span class="g-tag">Avatar</span><span class="g-tag">System UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/08%ED%99%94%EC%8B%A0.png" alt="화신" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 09" data-title="무공" data-src="Resource/MirM/09%EB%AC%B4%EA%B3%B5.png"
+        data-idx="18">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 09</span>
+            <h3 class="g-title">무공</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">무공 스킬 트리 UI입니다. 스킬 해금 조건과 강화 경로를 노드 구조로 시각화하여 플레이어가 자신만의 빌드를 전략적으로 설계할 수 있도록 지원합니다.</p>
+            <div class="g-tags"><span class="g-tag">Skill Tree</span><span class="g-tag">Node Graph</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/09%EB%AC%B4%EA%B3%B5.png" alt="무공" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 10" data-title="로그인"
+        data-src="Resource/MirM/10%EB%A1%9C%EA%B7%B8%EC%9D%B801.png" data-idx="19">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 10</span>
+            <h3 class="g-title">로그인</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">MirM 로그인 화면입니다. 게임 세계관을 압축적으로 전달하는 배경과 함께, 최소한의 입력 필드로 마찰 없는 진입 경험을 제공합니다.</p>
+            <div class="g-tags"><span class="g-tag">Login</span><span class="g-tag">Title Screen</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/10%EB%A1%9C%EA%B7%B8%EC%9D%B801.png" alt="로그인" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 11" data-title="Guide" data-src="Resource/MirM/11Guide.png" data-idx="20">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 11</span>
+            <h3 class="g-title">Guide</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">신규 플레이어를 위한 튜토리얼 가이드 UI입니다. 단계별 설명과 화살표 인디케이터로 게임의 핵심 기능을 자연스럽게 익힐 수 있도록 유도합니다.</p>
+            <div class="g-tags"><span class="g-tag">Tutorial</span><span class="g-tag">Guide UI</span><span
+                class="g-tag">UX Design</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/11Guide.png" alt="Guide" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 12" data-title="Icon Set 01" data-src="Resource/MirM/12Icon_01.png"
+        data-idx="21">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 12</span>
+            <h3 class="g-title">Icon Set 01</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">MirM 게임 아이콘 세트입니다. 스킬, 아이템, 버프 등 다양한 게임 요소를 일관된 스타일로 표현하여 시각적 통일감과 즉각적인 인식률을 높였습니다.</p>
+            <div class="g-tags"><span class="g-tag">Icon Design</span><span class="g-tag">Asset</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/12Icon_01.png" alt="Icon Set 01" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="MirM · 13" data-title="Icon Set 02" data-src="Resource/MirM/13Icon_02.png"
+        data-idx="22">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">MirM · 13</span>
+            <h3 class="g-title">Icon Set 02</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">추가 아이콘 세트입니다. 소비 아이템, 재화, 특수 효과 아이콘을 포함하며 색상 코드와 형태로 카테고리를 직관적으로 구분할 수 있도록 제작했습니다.</p>
+            <div class="g-tags"><span class="g-tag">Icon Design</span><span class="g-tag">Asset</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM/13Icon_02.png" alt="Icon Set 02" loading="lazy">
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="sep">
+    <div class="sep-inner">
+      <div class="sep-line"></div>
+      <div class="sep-dia"></div>
+      <div class="sep-line r"></div>
+    </div>
+  </div>
+  <section class="cat" id="cat-2">
+    <div class="cat-head">
+      <div class="cat-num">03</div>
+      <div>
+        <div class="cat-tag">PROJECT 03</div>
+        <h2 class="cat-title">MirM China</h2>
+        <p class="cat-desc">중국 시장을 타겟으로 한 MirM China 프로젝트의 UI 작업물입니다. 현지화된 UX와 중국 유저 성향에 맞춘 인터페이스 설계를 담았습니다.</p>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="g-card" data-badge="China · 01" data-title="HUD Level Up"
+        data-src="Resource/MirM_China/01HUDLevelUp.png" data-idx="23">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 01</span>
+            <h3 class="g-title">HUD Level Up</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">레벨업 시 표시되는 HUD 연출 UI입니다. 화면 전환 없이 인게임에서 즉각적으로 레벨업 효과와 새로운 스탯 정보를 전달하여 플레이 흐름을 유지합니다.</p>
+            <div class="g-tags"><span class="g-tag">HUD</span><span class="g-tag">Level Up</span><span
+                class="g-tag">Motion</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/01HUDLevelUp.png" alt="HUD Level Up" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 02" data-title="HUD Menu" data-src="Resource/MirM_China/02HUDMenu.png"
+        data-idx="24">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 02</span>
+            <h3 class="g-title">HUD Menu</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">인게임 메인 메뉴 HUD입니다. 자주 사용하는 기능을 빠르게 접근할 수 있도록 구성하였으며, 중국 유저의 플레이 패턴을 반영한 메뉴 배치를 적용했습니다.</p>
+            <div class="g-tags"><span class="g-tag">HUD</span><span class="g-tag">Menu</span><span class="g-tag">UX
+                Design</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/02HUDMenu.png" alt="HUD Menu" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 03" data-title="Event Quest"
+        data-src="Resource/MirM_China/03Event_Quest.png" data-idx="25">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 03</span>
+            <h3 class="g-title">Event Quest</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">이벤트 퀘스트 UI입니다. 기간 한정 이벤트의 진행 현황과 보상을 한눈에 파악할 수 있도록 설계하였으며, 참여 동기를 높이는 시각적 연출을 적용했습니다.</p>
+            <div class="g-tags"><span class="g-tag">Event</span><span class="g-tag">Quest UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/03Event_Quest.png" alt="Event Quest" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 04" data-title="Pass" data-src="Resource/MirM_China/04Pass_01.png"
+        data-idx="26">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 04</span>
+            <h3 class="g-title">Pass</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">시즌 패스 UI입니다. 무료/유료 트랙의 보상 현황을 명확하게 비교할 수 있도록 레이아웃을 구성하였으며, 잔여 기간과 달성률을 직관적으로 표시합니다.</p>
+            <div class="g-tags"><span class="g-tag">Season Pass</span><span class="g-tag">Monetization</span><span
+                class="g-tag">UI Design</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/04Pass_01.png" alt="Pass" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 05" data-title="Dungeon" data-src="Resource/MirM_China/05Dungeon.png"
+        data-idx="27">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 05</span>
+            <h3 class="g-title">Dungeon</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">던전 입장 및 진행 UI입니다. 던전 난이도, 입장 조건, 예상 보상을 한눈에 파악하고 파티 구성까지 이어지는 플로우를 끊김 없이 설계했습니다.</p>
+            <div class="g-tags"><span class="g-tag">Dungeon</span><span class="g-tag">Content UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/05Dungeon.png" alt="Dungeon" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 06" data-title="Offline Popup"
+        data-src="Resource/MirM_China/06offline_Popup.png" data-idx="28">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 06</span>
+            <h3 class="g-title">Offline Popup</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">오프라인 보상 수령 팝업입니다. 접속하지 않은 동안 획득한 재화와 경험치를 명확하게 표시하여 재접속 동기를 부여하고 플레이어의 만족감을 높입니다.</p>
+            <div class="g-tags"><span class="g-tag">Popup</span><span class="g-tag">Reward UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/06offline_Popup.png" alt="Offline Popup" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 07" data-title="NPC Shop Buy"
+        data-src="Resource/MirM_China/07NPCShop_Buy.png" data-idx="29">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 07</span>
+            <h3 class="g-title">NPC Shop Buy</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">NPC 상점 구매 UI입니다. 아이템 정보, 가격, 보유 재화를 한 화면에서 확인하고 수량 선택부터 결제까지 최소한의 단계로 완료할 수 있도록 플로우를
+              설계했습니다.</p>
+            <div class="g-tags"><span class="g-tag">Shop UI</span><span class="g-tag">NPC</span><span class="g-tag">UX
+                Flow</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/07NPCShop_Buy.png" alt="NPC Shop Buy" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 08" data-title="Grade" data-src="Resource/MirM_China/08Grade.png"
+        data-idx="30">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 08</span>
+            <h3 class="g-title">Grade</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">등급 시스템 UI입니다. 현재 등급과 다음 등급까지의 진행률을 시각적으로 표현하며, 등급별 혜택을 명확하게 안내하여 플레이어의 성장 동기를 강화합니다.</p>
+            <div class="g-tags"><span class="g-tag">Grade System</span><span class="g-tag">Progress UI</span><span
+                class="g-tag">Photoshop</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/08Grade.png" alt="Grade" loading="lazy">
+
+        </div>
+      </div>
+      <div class="g-card" data-badge="China · 09" data-title="Event Popup"
+        data-src="Resource/MirM_China/09EventPopup.png" data-idx="31">
+        <div class="g-overlay">
+          <div class="g-overlay-inner">
+            <span class="g-badge">China · 09</span>
+            <h3 class="g-title">Event Popup</h3>
+            <div class="g-divider"></div>
+            <p class="g-desc">이벤트 알림 팝업 UI입니다. 신규 이벤트, 업데이트 소식을 임팩트 있게 전달하며, 빠른 확인과 닫기가 가능한 구조로 플레이 흐름을 방해하지 않도록 설계했습니다.
+            </p>
+            <div class="g-tags"><span class="g-tag">Event</span><span class="g-tag">Popup</span><span class="g-tag">UI
+                Design</span></div>
+            <span class="g-zoom">클릭하여 크게 보기</span>
+          </div>
+        </div>
+        <div class="g-img-wrap">
+          <img src="Resource/MirM_China/09EventPopup.png" alt="Event Popup" loading="lazy">
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="sep">
+    <div class="sep-inner">
+      <div class="sep-line"></div>
+      <div class="sep-dia"></div>
+      <div class="sep-line r"></div>
+    </div>
+  </div>
+  <section class="cat" id="cat-3">
+    <div class="cat-head">
+      <div class="cat-num">04</div>
+      <div>
+        <div class="cat-tag">PROJECT 04</div>
+        <h2 class="cat-title">Other Project</h2>
+        <p class="cat-desc">수렵기원, Nexter, OMG, 천랑, 달을삼킨늑대 등 다양한 프로젝트의 UI 작업물입니다. 장르와 플랫폼을 넘나들며 쌓아온 디자인 경험을 담았습니다.</p>
+      </div>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-card-mini" data-badge="Other · 01" data-title="수렵기원 HUD" data-src="Resource/OtherProject/01%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_HUD.jpg">
+        <img src="Resource/OtherProject/01%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_HUD.jpg" alt="수렵기원 HUD" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 01</span><span class="g-mini-title">수렵기원 HUD</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 02" data-title="수렵기원 인벤토리 (2017)" data-src="Resource/OtherProject/02_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9D%B8%EB%B2%A4%ED%86%A0%EB%A6%AC.jpg">
+        <img src="Resource/OtherProject/02_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9D%B8%EB%B2%A4%ED%86%A0%EB%A6%AC.jpg" alt="수렵기원 인벤토리 (2017)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 02</span><span class="g-mini-title">수렵기원 인벤토리 (2017)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 03" data-title="수렵기원 장비강화 (2017)" data-src="Resource/OtherProject/03_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9E%A5%EB%B9%84%EA%B0%95%ED%99%94.jpg">
+        <img src="Resource/OtherProject/03_2017_%EC%88%98%EB%A0%B5%EA%B8%B0%EC%9B%90_%EC%9E%A5%EB%B9%84%EA%B0%95%ED%99%94.jpg" alt="수렵기원 장비강화 (2017)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 03</span><span class="g-mini-title">수렵기원 장비강화 (2017)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 04" data-title="Nexter 메인화면 (2016)" data-src="Resource/OtherProject/04_2016_Nexter_%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.png">
+        <img src="Resource/OtherProject/04_2016_Nexter_%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.png" alt="Nexter 메인화면 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 04</span><span class="g-mini-title">Nexter 메인화면 (2016)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 05" data-title="Nexter 로비 (2016)" data-src="Resource/OtherProject/05_2016_Nexter_%EB%A1%9C%EB%B9%84.jpg">
+        <img src="Resource/OtherProject/05_2016_Nexter_%EB%A1%9C%EB%B9%84.jpg" alt="Nexter 로비 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 05</span><span class="g-mini-title">Nexter 로비 (2016)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 06" data-title="Nexter 인게임 (2016)" data-src="Resource/OtherProject/06_2016_Nexter_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg">
+        <img src="Resource/OtherProject/06_2016_Nexter_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="Nexter 인게임 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 06</span><span class="g-mini-title">Nexter 인게임 (2016)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 07" data-title="Nexter 퀘스트 (2016)" data-src="Resource/OtherProject/07_2016_Nexter_%ED%80%98%EC%8A%A4%ED%8A%B8.jpg">
+        <img src="Resource/OtherProject/07_2016_Nexter_%ED%80%98%EC%8A%A4%ED%8A%B8.jpg" alt="Nexter 퀘스트 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 07</span><span class="g-mini-title">Nexter 퀘스트 (2016)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 08" data-title="Nexter 상자창고 (2016)" data-src="Resource/OtherProject/08_2016_Nexter_%EC%83%81%EC%9E%90%EC%B0%BD%EA%B3%A0.jpg">
+        <img src="Resource/OtherProject/08_2016_Nexter_%EC%83%81%EC%9E%90%EC%B0%BD%EA%B3%A0.jpg" alt="Nexter 상자창고 (2016)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 08</span><span class="g-mini-title">Nexter 상자창고 (2016)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 09" data-title="OMG 인게임 (2014)" data-src="Resource/OtherProject/09_2014_OMG_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg">
+        <img src="Resource/OtherProject/09_2014_OMG_%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="OMG 인게임 (2014)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 09</span><span class="g-mini-title">OMG 인게임 (2014)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 10" data-title="OMG 스테이지정보 (2014)" data-src="Resource/OtherProject/10_2014_OMG_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%80%EC%A0%95%EB%B3%B4.jpg">
+        <img src="Resource/OtherProject/10_2014_OMG_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%A7%80%EC%A0%95%EB%B3%B4.jpg" alt="OMG 스테이지정보 (2014)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 10</span><span class="g-mini-title">OMG 스테이지정보 (2014)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 11" data-title="OMG 캐릭터 성장 (2012)" data-src="Resource/OtherProject/11_2012_OMG_%EC%BA%90%EB%A6%AD%ED%84%B0%20%EC%84%B1%EC%9E%A5.jpg">
+        <img src="Resource/OtherProject/11_2012_OMG_%EC%BA%90%EB%A6%AD%ED%84%B0%20%EC%84%B1%EC%9E%A5.jpg" alt="OMG 캐릭터 성장 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 11</span><span class="g-mini-title">OMG 캐릭터 성장 (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 12" data-title="천랑 인게임 (2012)" data-src="Resource/OtherProject/12_2012_%EC%B2%9C%EB%9E%91%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg">
+        <img src="Resource/OtherProject/12_2012_%EC%B2%9C%EB%9E%91%EC%9D%B8%EA%B2%8C%EC%9E%84.jpg" alt="천랑 인게임 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 12</span><span class="g-mini-title">천랑 인게임 (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 13" data-title="천랑 소환수정보 (2012)" data-src="Resource/OtherProject/13_2012_%EC%B2%9C%EB%9E%91%EC%86%8C%ED%99%98%EC%88%98%EC%A0%95%EB%B3%B4.jpg">
+        <img src="Resource/OtherProject/13_2012_%EC%B2%9C%EB%9E%91%EC%86%8C%ED%99%98%EC%88%98%EC%A0%95%EB%B3%B4.jpg" alt="천랑 소환수정보 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 13</span><span class="g-mini-title">천랑 소환수정보 (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 14" data-title="천랑 아이콘 (2012)" data-src="Resource/OtherProject/10_2012_%EC%B2%9C%EB%9E%91%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/10_2012_%EC%B2%9C%EB%9E%91%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="천랑 아이콘 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 14</span><span class="g-mini-title">천랑 아이콘 (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 15" data-title="달을삼킨늑대 HUD (2012)" data-src="Resource/OtherProject/14_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_HUD.jpg">
+        <img src="Resource/OtherProject/14_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_HUD.jpg" alt="달을삼킨늑대 HUD (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 15</span><span class="g-mini-title">달을삼킨늑대 HUD (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 16" data-title="달을삼킨늑대 아이템 (2012)" data-src="Resource/OtherProject/15_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_%EC%95%84%EC%9D%B4%ED%85%9C.jpg">
+        <img src="Resource/OtherProject/15_2012_%EB%8B%AC%EC%9D%84%EC%82%BC%ED%82%A8%EB%8A%91%EB%8C%80_%EC%95%84%EC%9D%B4%ED%85%9C.jpg" alt="달을삼킨늑대 아이템 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 16</span><span class="g-mini-title">달을삼킨늑대 아이템 (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 17" data-title="퍼즐이냥 인게임 피버 (2012)" data-src="Resource/OtherProject/18_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%9D%B8%EA%B2%8C%EC%9E%84%20%ED%94%BC%EB%B2%84%EB%AA%A8%EB%93%9C.jpg">
+        <img src="Resource/OtherProject/18_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%9D%B8%EA%B2%8C%EC%9E%84%20%ED%94%BC%EB%B2%84%EB%AA%A8%EB%93%9C.jpg" alt="퍼즐이냥 인게임 피버 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 17</span><span class="g-mini-title">퍼즐이냥 인게임 피버 (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 18" data-title="퍼즐이냥 상점 아이콘 (2012)" data-src="Resource/OtherProject/19_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%83%81%EC%A0%90%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/19_2012_%ED%8D%BC%EC%A6%90%EC%9D%B4%EB%83%A5_%EC%83%81%EC%A0%90%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="퍼즐이냥 상점 아이콘 (2012)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 18</span><span class="g-mini-title">퍼즐이냥 상점 아이콘 (2012)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 19" data-title="천룡기 팝업창 (2011)" data-src="Resource/OtherProject/20_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%ED%8C%9D%EC%97%85%EC%B0%BD.jpg">
+        <img src="Resource/OtherProject/20_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%ED%8C%9D%EC%97%85%EC%B0%BD.jpg" alt="천룡기 팝업창 (2011)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 19</span><span class="g-mini-title">천룡기 팝업창 (2011)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 20" data-title="천룡기 아이콘 (2011)" data-src="Resource/OtherProject/21_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/21_2011_%EC%B2%9C%EB%A3%A1%EA%B8%B0_%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="천룡기 아이콘 (2011)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 20</span><span class="g-mini-title">천룡기 아이콘 (2011)</span></div></div>
+      </div>
+      <div class="g-card-mini" data-badge="Other · 21" data-title="창천 아이템 아이콘 (2010)" data-src="Resource/OtherProject/22_2010_%EC%B0%BD%EC%B2%9C_%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg">
+        <img src="Resource/OtherProject/22_2010_%EC%B0%BD%EC%B2%9C_%EC%95%84%EC%9D%B4%ED%85%9C%20%EC%95%84%EC%9D%B4%EC%BD%98.jpg" alt="창천 아이템 아이콘 (2010)" loading="lazy">
+        <div class="g-mini-overlay"><div class="g-mini-info"><span class="g-mini-badge">Other · 21</span><span class="g-mini-title">창천 아이템 아이콘 (2010)</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-orn"></div>
+    <h2 class="about-h">감사합니다.</h2>
+    <div class="about-contact">
+      <p class="about-name">심보영</p>
+      <p class="about-info"><span class="about-label">T</span> 010.6558.7226</p>
+      <p class="about-info"><span class="about-label">E</span> b.y.shim03@gmail.com</p>
+    </div>
+  </section>
+
+  <footer>© 2025 Game UI Portfolio &nbsp;·&nbsp; Crafted with Precision</footer>
+
+  <div id="lb">
+    <div id="lb-bg"></div>
+    <div id="lb-box">
+      <button id="lb-close">✕</button>
+      <button class="lb-nav-btn" id="lb-prev">❮</button>
+      <button class="lb-nav-btn" id="lb-next">❯</button>
+      <div id="lb-img-wrap"></div>
+      <div id="lb-cap-overlay">
+        <div id="lb-cap-l"><span id="lb-badge"></span><span id="lb-title"></span></div>
+        <div id="lb-cap-r">
+          <span id="lb-count"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Build ITEMS from DOM automatically */
+    var ITEMS = [];
+    document.querySelectorAll('.g-card, .g-card-mini').forEach(function (card, i) {
+      card.setAttribute('data-idx', i);
+      ITEMS.push({
+        src: card.dataset.src,
+        badge: card.dataset.badge,
+        title: card.dataset.title,
+        type: card.dataset.type || 'image',
+        idx: card.dataset.badge
+      });
+    });
+    var nav = document.getElementById('nav');
+    var cats = document.querySelectorAll('.cat');
+    var navLinks = document.querySelectorAll('.nav-center a[data-cat]');
+    var dnItems = document.querySelectorAll('.dn-item');
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    function onScroll() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      var mid = window.scrollY + window.innerHeight * .45;
+      var cur = -1;
+      cats.forEach(function (s, i) { if (s.offsetTop <= mid) cur = i; });
+      navLinks.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+      dnItems.forEach(function (d, i) { d.classList.toggle('on', i === cur); });
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+    dnItems.forEach(function (d) {
+      d.addEventListener('click', function () {
+        var el = document.getElementById(d.dataset.go);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    onScroll();
+
+    /* LIGHTBOX */
+    var lb = document.getElementById('lb');
+    var lbBg = document.getElementById('lb-bg');
+    var lbWrap = document.getElementById('lb-img-wrap');
+    var lbClose = document.getElementById('lb-close');
+    var lbPrev = document.getElementById('lb-prev');
+    var lbNext = document.getElementById('lb-next');
+    var lbBadge = document.getElementById('lb-badge');
+    var lbTitle = document.getElementById('lb-title');
+    var lbCount = document.getElementById('lb-count');
+    var cur = 0;
+
+    function showLb(i) {
+      cur = ((i % ITEMS.length) + ITEMS.length) % ITEMS.length;
+      var it = ITEMS[cur];
+      lbWrap.innerHTML = '';
+      lbBadge.textContent = it.badge;
+      lbTitle.textContent = it.title;
+      lbCount.textContent = (cur + 1) + ' / ' + ITEMS.length;
+      if (it.type === 'video') {
+        var vid = document.createElement('video');
+        vid.src = it.src;
+        vid.autoplay = true; vid.controls = true; vid.loop = true; vid.muted = false; vid.playsInline = true;
+        vid.style.cssText = 'display:block;width:100%;height:100%;object-fit:contain;';
+        vid.addEventListener('loadedmetadata', function () { lbSize.textContent = vid.videoWidth + ' × ' + vid.videoHeight + ' px'; });
+        lbWrap.appendChild(vid);
+      } else {
+        var img = new Image();
+        img.onload = function () { lbSize.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px'; };
+        img.src = it.src;
+        img.style.cssText = 'display:block;width:100%;height:100%;object-fit:contain;';
+        img.addEventListener('click', closeLb);
+        lbWrap.appendChild(img);
+      }
+      lbWrap.scrollTop = 0; lbWrap.scrollLeft = 0;
+    }
+    function openLb(i) { showLb(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+
+    document.querySelectorAll('.g-card, .g-card-mini').forEach(function (card) {
+      card.addEventListener('click', function () { openLb(parseInt(card.dataset.idx)); });
+    });
+    lbClose.addEventListener('click', closeLb);
+    lbBg.addEventListener('click', closeLb);
+    lbPrev.addEventListener('click', function (e) { e.stopPropagation(); showLb(cur - 1); });
+    lbNext.addEventListener('click', function (e) { e.stopPropagation(); showLb(cur + 1); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') showLb(cur - 1);
+      if (e.key === 'ArrowRight') showLb(cur + 1);
+    });
+    var tx = 0;
+    lb.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 50) dx < 0 ? showLb(cur + 1) : showLb(cur - 1);
+    }, { passive: true });
+  </script>
+
+
+</body>
+
+</html>
